@@ -17,6 +17,11 @@
     --shadow-soft: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+/* Global Reset for Sizing */
+* {
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -28,6 +33,8 @@ body {
     display: flex;
     justify-content: center;
     overflow-x: hidden;
+    width: 100%;
+    /* Force width */
     font-weight: 500;
     /* Softer, not too bold */
 }
@@ -240,6 +247,8 @@ select:focus {
     gap: 8px;
     margin: 15px 0;
     filter: blur(10px);
+    flex-wrap: wrap;
+    /* Allow wrapping on small screens */
     /* Default Blurred */
     transition: filter 0.5s;
 }
