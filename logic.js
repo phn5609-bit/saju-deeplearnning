@@ -125,24 +125,25 @@ document.getElementById('btn-close-ad').addEventListener('click', function () {
 // --- Saju Logic & Affiliate Data ---
 const ELEMENTS = {
     WOOD: {
-        name: '목(재능)', color: '#2e7d32', numbers: [3, 8], direction: '동쪽',
-        searchQuery: '행운의 나무 도장'
+        name: '목(성장)', color: '#4caf50', numbers: [3, 8], direction: '동쪽',
+        link: 'https://link.coupang.com/a/dPz3uN' // 나무 반지
     },
     FIRE: {
-        name: '화(열정)', color: '#c62828', numbers: [2, 7], direction: '남쪽',
-        searchQuery: '레드 스카프'
+        name: '화(열정)', color: '#e53935', numbers: [2, 7], direction: '남쪽',
+        link: 'https://link.coupang.com/a/dPz6mV' // 빨간 양말/지갑
     },
     EARTH: {
-        name: '토(신용)', color: '#f9a825', numbers: [5, 10], direction: '중앙',
-        searchQuery: '황금 두꺼비'
+        name: '토(신용)', color: '#ffb300', numbers: [0, 5], direction: '중앙',
+        link: 'https://link.coupang.com/a/dPz7EI' // 황토 매트
     },
     METAL: {
         name: '금(결단)', color: '#455a64', numbers: [4, 9], direction: '서쪽',
-        searchQuery: '메탈 시계'
+        link: 'https://link.coupang.com/a/dPz85Z' // 메탈 시계
     },
     WATER: {
         name: '수(지혜)', color: '#1565c0', numbers: [1, 6], direction: '북쪽',
-        searchQuery: '검정 지갑'
+        // Randomly pick one of two wallets
+        link: Math.random() < 0.5 ? 'https://link.coupang.com/a/dPAdYI' : 'https://link.coupang.com/a/dPAdYI'
     }
 };
 
@@ -202,11 +203,13 @@ function displayResult(res) {
         container.appendChild(span);
     });
 
-    // Affiliate Link Logic (Coupang Search)
-    const linkBtn = document.getElementById('lucky-item-link');
-    const searchUrl = `https://www.coupang.com/np/search?component=&q=${encodeURIComponent(el.searchQuery)}`;
-    linkBtn.href = searchUrl;
-    linkBtn.target = "_blank";
+    // Affiliate Link    // 4. Update Lucky Item Link
+    const itemLink = document.getElementById('lucky-item-link');
+    // Direct Affiliate Link
+    itemLink.href = el.link;
+    itemLink.textContent = `🎁 행운의 아이템: ${el.name.split('(')[0]} 기운 보충하기`;
+    // Open in new tab?
+    itemLink.target = "_blank";
 }
 
 function resetLottoGate() {
