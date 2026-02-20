@@ -222,3 +222,34 @@ function getBallColor(n) {
     if (n <= 40) return '#bdbdbd';
     return '#66bb6a';
 }
+
+// --- Share Logic ---
+document.addEventListener('DOMContentLoaded', function () {
+    const shareBtn = document.getElementById('btn-share');
+    if (shareBtn) {
+        shareBtn.addEventListener('click', shareResult);
+    }
+});
+
+function shareResult() {
+    const title = "명리학 딥러닝 - AI 사주 & 로또";
+    const text = "당신의 부족한 기운과 행운의 로또 번호를 무료로 확인해보세요!";
+    const url = window.location.href;
+
+    if (navigator.share) {
+        navigator.share({
+            title: title,
+            text: text,
+            url: url,
+        })
+            .then(() => console.log('Successful share'))
+            .catch((error) => console.log('Error sharing', error));
+    } else {
+        // Fallback for PC
+        navigator.clipboard.writeText(url).then(() => {
+            alert("주소가 복사되었습니다! 친구에게 붙여넣기(Ctrl+V) 하세요.");
+        }).catch(err => {
+            alert("복사 실패: " + err);
+        });
+    }
+}
