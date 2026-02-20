@@ -333,8 +333,14 @@ function displayResult(res) {
         itemLink.href = randomUrl || el.links[0];
     }
 
-    itemLink.textContent = `🎁 행운의 아이템: ${el.name.split('(')[0]} 기운 보충하기`;
-    // Open in new tab?
+    // 버튼 텍스트: 요일 링크면 "오늘의 행운 아이템", 오행 링크면 "기운 보충하기"
+    if (dailyLink) {
+        const dayNames = ['일', '월', '화', '수', '목', '금', '토'];
+        const dayName = dayNames[new Date().getDay()];
+        itemLink.textContent = `🎁 ${dayName}요일 행운의 추천 아이템`;
+    } else {
+        itemLink.textContent = `🎁 행운의 아이템: ${el.name.split('(')[0]} 기운 보충하기`;
+    }
     itemLink.target = "_blank";
 }
 
