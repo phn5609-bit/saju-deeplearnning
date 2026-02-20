@@ -173,44 +173,72 @@ function calculateSaju(dateStr, birthHour) {
     const userDate = new Date(dateStr);
     const refDate = new Date('1900-01-01');
 
-    // 1. 일주 천간 계산 (1900-01-01 = 갑(0)일)
+    // 1. 일주 계산 파라미터 다양화
     const diffDays = Math.floor((userDate - refDate) / (1000 * 60 * 60 * 24));
     const dayStemIndex = ((diffDays % 10) + 10) % 10;
+    const dayBranchIndex = ((diffDays % 12) + 12) % 12;
 
-    // 2. 연주 천간 계산 (1900 = 경(6)년)
+    // 2. 연주 계산 파라미터 다양화
     const year = userDate.getFullYear();
-    const yearStemIndex = ((year - 1900) % 10 + 10) % 10 * 1 % 10;
+    const yearStemIndex = ((year - 1900) % 10 + 10) % 10;
+    const yearBranchIndex = ((year - 1900) % 12 + 12) % 12;
 
-    // 3. 월주 천간 계산 (연간 × 2 + 월 × 2 기반)
+    // 3. 월주 계산
     const month = userDate.getMonth() + 1;
-    const monthStemBase = (yearStemIndex % 5) * 2;
-    const monthStemIndex = (monthStemBase + month + 1) % 10;
+    const day = userDate.getDate();
+    // 일자 데이터도 월주 인덱스에 미세하게 개입시켜 엔트로피 증가
+    const monthStemIndex = (yearStemIndex * 2 + month + (day % 3)) % 10;
 
-    // 4. 시주 천간 계산 (시간에 따라 0~11 → 천간 배분)
+    // 4. 시주 천간 계산 (시간에 따라 0~11 지지 → 천간 변환)
     let hourStemOffset = 0;
+    let hourFactor = 0;
     if (birthHour !== 'unknown') {
         const h = parseInt(birthHour);
-        // 자시~해시 12지지 → 시주 천간: 일간 × 2 + 시지 index
+        // 시간에 따른 가중치 크게 부여
         const hourBranch = Math.floor(h / 2); // 0~11
         hourStemOffset = (dayStemIndex % 5) * 2 + hourBranch;
+        hourFactor = hourBranch * 3; // 시간에 따른 변동성 증폭
+    } else {
+        // 모름 선택 시 생일 해시값을 사용하여 고정 변동성 부여
+        hourFactor = (day * month) % 7;
     }
 
-    // 5. 종합 천간 인덱스 (일주 + 시주 조합으로 다양성 확보)
-    const combinedIndex = (dayStemIndex + monthStemIndex + yearStemIndex + hourStemOffset) % 10;
+    // 5. Gender Factor (Optional, but adds variety if we access it)
+    // To do this properly we need to grab the gender radio
+    const genderEl = document.querySelector('input[name="gender"]:checked');
+    const genderVal = genderEl ? (genderEl.value === 'm' ? 1 : 5) : 0;
+
+    // 6. 종합 엔트로피 계산 (프라임 넘버 곱셈으로 해시 충돌 최소화)
+    const combinedHash = (
+        (dayStemIndex * 7) + 
+        (dayBranchIndex * 11) + 
+        (yearStemIndex * 13) + 
+        (yearBranchIndex * 17) + 
+        (monthStemIndex * 19) + 
+        (hourStemOffset * 23) + 
+        hourFactor +
+        genderVal
+    );
+
+    const combinedIndex = combinedHash % 10;
 
     // 천간 → 오행 매핑: 갑을=목, 병정=화, 무기=토, 경신=금, 임계=수
     const stemToElement = ['WOOD', 'WOOD', 'FIRE', 'FIRE', 'EARTH', 'EARTH', 'METAL', 'METAL', 'WATER', 'WATER'];
     const myElement = stemToElement[combinedIndex];
 
-    // 상극 관계: 내 오행이 강하면 극당하는 오행이 부족
-    const opposites = {
-        WOOD: 'METAL',
-        FIRE: 'WATER',
-        EARTH: 'WOOD',
-        METAL: 'FIRE',
-        WATER: 'EARTH'
+    // 상극 관계 (다양성을 위해 상생/상극 믹스)
+    // 내 기운이 강할 때 필요한 기운 매핑 (조금 더 다채롭게)
+    const lackingMap = {
+        WOOD: ['METAL', 'EARTH'], // 목극토, 금극목
+        FIRE: ['WATER', 'METAL'], // 수극화, 화극금
+        EARTH: ['WOOD', 'WATER'], // 목극토, 토극수
+        METAL: ['FIRE', 'WOOD'],  // 화극금, 금극목
+        WATER: ['EARTH', 'FIRE']  // 토극수, 수극화
     };
-    const lacking = opposites[myElement];
+    
+    // 두 가지 부족한 기운 중 해시값에 따라 하나 선택
+    const lackingChoiceIndex = (combinedHash % 2);
+    const lacking = lackingMap[myElement][lackingChoiceIndex];
 
     return { myElement, lacking, combinedIndex };
 }
