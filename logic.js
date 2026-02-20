@@ -224,14 +224,20 @@ function getBallColor(n) {
 }
 
 // --- Share Logic ---
-document.addEventListener('DOMContentLoaded', function () {
-    const shareBtn = document.getElementById('btn-share');
-    if (shareBtn) {
-        shareBtn.addEventListener('click', shareResult);
-    }
-});
+// --- Share Logic ---
+// Script is at the end of body, so elements should exist.
+const shareBtn = document.getElementById('btn-share');
+if (shareBtn) {
+    shareBtn.addEventListener('click', shareResult);
+    console.log("Share button hooked");
+} else {
+    console.error("Share button not found!");
+}
 
 function shareResult() {
+    // Debug Alert (Temporary)
+    // alert("공유 버튼 클릭됨!"); 
+
     const title = "명리학 딥러닝 - AI 사주 & 로또";
     const text = "당신의 부족한 기운과 행운의 로또 번호를 무료로 확인해보세요!";
     const url = window.location.href;
@@ -249,7 +255,7 @@ function shareResult() {
         navigator.clipboard.writeText(url).then(() => {
             alert("주소가 복사되었습니다! 친구에게 붙여넣기(Ctrl+V) 하세요.");
         }).catch(err => {
-            alert("복사 실패: " + err);
+            alert("복사 기능이 차단되었습니다. 주소창을 복사해주세요.\n" + err); // Show error detail
         });
     }
 }
