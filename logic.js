@@ -73,8 +73,9 @@ document.getElementById('saju-form').addEventListener('submit', function (e) {
         loading.classList.add('hidden');
         loading.style.display = 'none';
 
-        // Compute
-        currentResult = calculateSaju(dateStr);
+        // Compute (생년월일 + 태어난 시간 함께 전달)
+        const birthHour = document.getElementById('birthtime').value;
+        currentResult = calculateSaju(dateStr, birthHour);
         displayResult(currentResult);
 
         // Show Result & Reset Gate
@@ -193,7 +194,7 @@ const ELEMENTS = {
         ]
     },
     EARTH: {
-        name: '토(신용)', color: '#ffb300', numbers: [0, 5], direction: '중앙',
+        name: '토(신용)', color: '#ffb300', numbers: [10, 5], direction: '중앙',
         health: '위장 등 소화기 계통이 약할 수 있습니다. 규칙적인 식습관과 코어 운동이 필요합니다.',
         // Keywords: 황토 흙침대 매트, 고급 도자기 그릇, 옐로우 침구 세트, 금부엉이 장식, 유산균 (골드)
         links: [
@@ -230,30 +231,50 @@ const ELEMENTS = {
     }
 };
 
-function calculateSaju(dateStr) {
+function calculateSaju(dateStr, birthHour) {
     const userDate = new Date(dateStr);
     const refDate = new Date('1900-01-01');
+
+    // 1. 일주 천간 계산 (1900-01-01 = 갑(0)일)
     const diffDays = Math.floor((userDate - refDate) / (1000 * 60 * 60 * 24));
-    let stemIndex = (0 + diffDays) % 10;
-    if (stemIndex < 0) stemIndex += 10;
+    const dayStemIndex = ((diffDays % 10) + 10) % 10;
 
-    // 0,1=Wood, 2,3=Fire, 4,5=Earth, 6,7=Metal, 8,9=Water
-    let myElement = 'WOOD';
-    if (stemIndex <= 1) myElement = 'WOOD';
-    else if (stemIndex <= 3) myElement = 'FIRE';
-    else if (stemIndex <= 5) myElement = 'EARTH';
-    else if (stemIndex <= 7) myElement = 'METAL';
-    else myElement = 'WATER';
+    // 2. 연주 천간 계산 (1900 = 경(6)년)
+    const year = userDate.getFullYear();
+    const yearStemIndex = ((year - 1900) % 10 + 10) % 10 * 1 % 10;
 
-    // Simple Opposition Logic
-    let lacking = 'EARTH';
-    if (myElement === 'WOOD') lacking = 'METAL';
-    if (myElement === 'FIRE') lacking = 'WATER';
-    if (myElement === 'EARTH') lacking = 'WOOD';
-    if (myElement === 'METAL') lacking = 'FIRE';
-    if (myElement === 'WATER') lacking = 'EARTH';
+    // 3. 월주 천간 계산 (연간 × 2 + 월 × 2 기반)
+    const month = userDate.getMonth() + 1;
+    const monthStemBase = (yearStemIndex % 5) * 2;
+    const monthStemIndex = (monthStemBase + month + 1) % 10;
 
-    return { myElement, lacking };
+    // 4. 시주 천간 계산 (시간에 따라 0~11 → 천간 배분)
+    let hourStemOffset = 0;
+    if (birthHour !== 'unknown') {
+        const h = parseInt(birthHour);
+        // 자시~해시 12지지 → 시주 천간: 일간 × 2 + 시지 index
+        const hourBranch = Math.floor(h / 2); // 0~11
+        hourStemOffset = (dayStemIndex % 5) * 2 + hourBranch;
+    }
+
+    // 5. 종합 천간 인덱스 (일주 + 시주 조합으로 다양성 확보)
+    const combinedIndex = (dayStemIndex + monthStemIndex + yearStemIndex + hourStemOffset) % 10;
+
+    // 천간 → 오행 매핑: 갑을=목, 병정=화, 무기=토, 경신=금, 임계=수
+    const stemToElement = ['WOOD', 'WOOD', 'FIRE', 'FIRE', 'EARTH', 'EARTH', 'METAL', 'METAL', 'WATER', 'WATER'];
+    const myElement = stemToElement[combinedIndex];
+
+    // 상극 관계: 내 오행이 강하면 극당하는 오행이 부족
+    const opposites = {
+        WOOD: 'METAL',
+        FIRE: 'WATER',
+        EARTH: 'WOOD',
+        METAL: 'FIRE',
+        WATER: 'EARTH'
+    };
+    const lacking = opposites[myElement];
+
+    return { myElement, lacking, combinedIndex };
 }
 
 function displayResult(res) {
@@ -262,14 +283,27 @@ function displayResult(res) {
     document.getElementById('lacking-element').innerText = el.name;
     document.getElementById('lacking-element').style.color = el.color;
 
-    document.getElementById('desc-total').innerText = `딥러닝 분석 결과, 귀하에게는 [${el.name}] 기운의 보강이 시급합니다.`;
-    document.getElementById('desc-wealth').innerText = `${el.direction} 방향의 귀인을 찾으세요. 행운의 숫자는 ${el.numbers.join(', ')}입니다.`;
+    const myEl = ELEMENTS[res.myElement];
+    const stemNames = ['갑', '을', '병', '정', '무', '기', '경', '신', '임', '계'];
+    const stemName = stemNames[res.combinedIndex] || '갑';
+
+    document.getElementById('desc-total').innerText =
+        `사주 분석 결과, 귀하의 타고난 기운은 [${myEl.name}]입니다. ` +
+        `이 기운이 강한 만큼, 반대 기운인 [${el.name}]이(가) 부족하여 균형이 깨져 있습니다. ` +
+        `${el.name.split('(')[0]} 기운을 보충하면 운이 열립니다.`;
+
+    document.getElementById('desc-wealth').innerText =
+        `${el.direction} 방향이 귀하의 재물 귀인 방향입니다. ` +
+        `행운의 숫자는 ${el.numbers.join(', ')}이며, 이 숫자를 생활 속에서 활용하세요. ` +
+        `사업·직업운: ${myEl.direction} 방향의 파트너와 협력하면 성과가 커집니다.`;
+
     document.getElementById('desc-health').innerText = el.health;
 
-    // Generate Lotto List
+    // Generate Lotto List (1~45 범위, 중복 없음)
     const nums = [];
-    if (el.numbers[0]) nums.push(el.numbers[0]);
-    if (el.numbers[1]) nums.push(el.numbers[1]);
+    [el.numbers[0], el.numbers[1]].forEach(n => {
+        if (n && n >= 1 && n <= 45 && !nums.includes(n)) nums.push(n);
+    });
     while (nums.length < 6) {
         let r = Math.floor(Math.random() * 45) + 1;
         if (!nums.includes(r)) nums.push(r);
