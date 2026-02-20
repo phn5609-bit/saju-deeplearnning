@@ -413,12 +413,14 @@ select:focus {
 
 /* 쿠팡 파트너스 공지 푸터 */
 .coupang-notice {
+    grid-column: 1 / -1;
     width: 100%;
     background: #f0ebe3;
     border-top: 1px solid #d7ccc8;
     text-align: center;
     padding: 12px 20px;
     margin-top: 10px;
+    border-radius: 0 0 8px 8px;
 }
 
 .coupang-notice p {
