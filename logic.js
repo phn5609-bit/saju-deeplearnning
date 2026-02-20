@@ -191,48 +191,91 @@ const ELEMENTS = {
 
 function calculateSaju(dateStr, birthHour) {
     const userDate = new Date(dateStr);
-    const refDate = new Date('1900-01-01');
 
-    // 1. 일주 천간 계산 (1900-01-01 = 갑(0)일)
-    const diffDays = Math.floor((userDate - refDate) / (1000 * 60 * 60 * 24));
-    const dayStemIndex = ((diffDays % 10) + 10) % 10;
-
-    // 2. 연주 천간 계산 (1900 = 경(6)년)
+    // 1. 연주 (Year Pillar)
     const year = userDate.getFullYear();
-    const yearStemIndex = ((year - 1900) % 10 + 10) % 10 * 1 % 10;
+    const yearStemIndex = (year - 4 + 10) % 10;
+    const yearBranchIndex = (year - 4 + 12) % 12;
 
-    // 3. 월주 천간 계산 (연간 × 2 + 월 × 2 기반)
+    // 2. 월주 (Month Pillar) - Simplified Mapping
     const month = userDate.getMonth() + 1;
-    const monthStemBase = (yearStemIndex % 5) * 2;
-    const monthStemIndex = (monthStemBase + month + 1) % 10;
+    const monthBranchIndex = month === 1 ? 1 : month === 12 ? 0 : month;
+    // 갑기합화토 -> 병인월 시동
+    const monthStemStart = [2, 4, 6, 8, 0][yearStemIndex % 5];
+    const monthStemIndex = (monthStemStart + (monthBranchIndex - 2 + 12) % 12) % 10;
 
-    // 4. 시주 천간 계산 (시간에 따라 0~11 → 천간 배분)
-    let hourStemOffset = 0;
+    // 3. 일주 (Day Pillar)
+    const refDate = new Date('1900-01-01T00:00:00Z');
+    const uDate = new Date(dateStr + 'T00:00:00Z');
+    const diffDays = Math.floor((uDate - refDate) / (1000 * 60 * 60 * 24));
+
+    const dayStemIndex = ((diffDays % 10) + 10) % 10;
+    const dayBranchIndex = (((diffDays + 10) % 12) + 12) % 12;
+
+    // 4. 시주 (Time Pillar)
+    let hourBranchIndex = 0;
+    let hourStemIndex = 0;
     if (birthHour !== 'unknown') {
         const h = parseInt(birthHour);
-        // 자시~해시 12지지 → 시주 천간: 일간 × 2 + 시지 index
-        const hourBranch = Math.floor(h / 2); // 0~11
-        hourStemOffset = (dayStemIndex % 5) * 2 + hourBranch;
+        // 자시=0, 축시=1 ...
+        hourBranchIndex = Math.floor((h + 1) % 24 / 2);
+        // 갑기일 -> 갑자시 시동
+        const hourStemStart = [0, 2, 4, 6, 8][dayStemIndex % 5];
+        hourStemIndex = (hourStemStart + hourBranchIndex) % 10;
+    } else {
+        hourBranchIndex = (dayStemIndex + monthBranchIndex) % 12;
+        hourStemIndex = (yearStemIndex + dayBranchIndex) % 10;
     }
 
-    // 5. 종합 천간 인덱스 (일주 + 시주 조합으로 다양성 확보)
-    const combinedIndex = (dayStemIndex + monthStemIndex + yearStemIndex + hourStemOffset) % 10;
+    // 5. 사주팔자(8글자) 오행 카운트 산출
+    // 갑을(목0), 병정(화1), 무기(토2), 경신(금3), 임계(수4)
+    const stemToOhang = [0, 0, 1, 1, 2, 2, 3, 3, 4, 4];
+    // 자(수4), 축(토2), 인(목0), 묘(목0), 진(토2), 사(화1), 오(화1), 미(토2), 신(금3), 유(금3), 술(토2), 해(수4)
+    const branchToOhang = [4, 2, 0, 0, 2, 1, 1, 2, 3, 3, 2, 4];
 
-    // 천간 → 오행 매핑: 갑을=목, 병정=화, 무기=토, 경신=금, 임계=수
-    const stemToElement = ['WOOD', 'WOOD', 'FIRE', 'FIRE', 'EARTH', 'EARTH', 'METAL', 'METAL', 'WATER', 'WATER'];
-    const myElement = stemToElement[combinedIndex];
+    const elementsCount = [0, 0, 0, 0, 0]; // 목, 화, 토, 금, 수
+    elementsCount[stemToOhang[yearStemIndex]]++;
+    elementsCount[branchToOhang[yearBranchIndex]]++;
+    elementsCount[stemToOhang[monthStemIndex]]++;
+    elementsCount[branchToOhang[monthBranchIndex]]++;
+    elementsCount[stemToOhang[dayStemIndex]]++;
+    elementsCount[branchToOhang[dayBranchIndex]]++;
+    elementsCount[stemToOhang[hourStemIndex]]++;
+    elementsCount[branchToOhang[hourBranchIndex]]++;
 
-    // 상극 관계: 내 오행이 강하면 극당하는 오행이 부족
-    const opposites = {
-        WOOD: 'METAL',
-        FIRE: 'WATER',
-        EARTH: 'WOOD',
-        METAL: 'FIRE',
-        WATER: 'EARTH'
-    };
-    const lacking = opposites[myElement];
+    // 일간(Day Stem)이 곧 나의 기준 오행
+    const myOhangIndex = stemToOhang[dayStemIndex];
+    const ohangNames = ['WOOD', 'FIRE', 'EARTH', 'METAL', 'WATER'];
+    const myElement = ohangNames[myOhangIndex];
 
-    return { myElement, lacking, combinedIndex };
+    // 팔자 중 가장 적게 배치된(부족한) 원소 찾기
+    let minCount = 8;
+    for (let i = 0; i < 5; i++) {
+        if (elementsCount[i] < minCount) {
+            minCount = elementsCount[i];
+        }
+    }
+
+    // 최저 개수인 오행 후보들 추출
+    const candidates = [];
+    for (let i = 0; i < 5; i++) {
+        if (elementsCount[i] === minCount) {
+            candidates.push(i);
+        }
+    }
+
+    // 후보 중 결정(나의 기운은 가급적 제외)
+    let lackingIndex = candidates[0];
+    if (candidates.length > 1) {
+        lackingIndex = candidates[(dayStemIndex + hourBranchIndex) % candidates.length];
+        if (lackingIndex === myOhangIndex) {
+            lackingIndex = candidates[(lackingIndex + 1) % candidates.length];
+        }
+    }
+
+    const lacking = ohangNames[lackingIndex];
+
+    return { myElement, lacking, combinedIndex: dayStemIndex };
 }
 
 function displayResult(res) {
