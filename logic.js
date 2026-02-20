@@ -122,7 +122,51 @@ document.getElementById('btn-close-ad').addEventListener('click', function () {
 });
 
 
-// --- Saju Logic & Affiliate Data ---
+// --- 요일별 쿠팡 파트너스 링크 ---
+// 0=일, 1=월, 2=화, 3=수, 4=목, 5=금, 6=토
+const DAILY_COUPANG_LINKS = {
+    4: [ // 목요일
+        'https://link.coupang.com/a/dPAyhD',
+        'https://link.coupang.com/a/dPAzXl',
+        'https://link.coupang.com/a/dPABEk',
+        'https://link.coupang.com/a/dPACUx'
+    ],
+    2: [ // 화요일
+        'https://link.coupang.com/a/dPAEmy',
+        'https://link.coupang.com/a/dPAFew',
+        'https://link.coupang.com/a/dPAGyD',
+        'https://link.coupang.com/a/dPAJl5'
+    ],
+    6: [ // 토요일
+        'https://link.coupang.com/a/dPAKmu',
+        'https://link.coupang.com/a/dPAK4P',
+        'https://link.coupang.com/a/dPALDw',
+        'https://link.coupang.com/a/dPAMEC'
+    ],
+    5: [ // 금요일
+        'https://link.coupang.com/a/dPAN39',
+        'https://link.coupang.com/a/dPAOtD',
+        'https://link.coupang.com/a/dPAPSt',
+        'https://link.coupang.com/a/dPAQZb'
+    ],
+    3: [ // 수요일
+        'https://link.coupang.com/a/dPATGA',
+        'https://link.coupang.com/a/dPAUou',
+        'https://link.coupang.com/a/dPAXb9',
+        'https://link.coupang.com/a/dPAXb9'
+    ]
+};
+
+function getTodayCoupangLink() {
+    const today = new Date().getDay(); // 0=일, 1=월, 2=화, 3=수, 4=목, 5=금, 6=토
+    const links = DAILY_COUPANG_LINKS[today];
+    if (links && links.length > 0) {
+        return links[Math.floor(Math.random() * links.length)];
+    }
+    return null; // 일/월요일은 null (기존 사주 기반 링크 사용)
+}
+
+
 const ELEMENTS = {
     WOOD: {
         name: '목(성장)', color: '#4caf50', numbers: [3, 8], direction: '동쪽',
@@ -245,11 +289,15 @@ function displayResult(res) {
     // Affiliate Link    // 4. Update Lucky Item Link
     const itemLink = document.getElementById('lucky-item-link');
 
-    // Pick Random Link from the array (5 items)
-    const randomUrl = el.links[Math.floor(Math.random() * el.links.length)];
-
-    // Safety check: if empty string (placeholder), fallback to first item
-    itemLink.href = randomUrl || el.links[0];
+    // 오늘 요일 기반 쿠팡 링크 우선 사용, 없으면 사주 기반 링크 사용
+    const dailyLink = getTodayCoupangLink();
+    if (dailyLink) {
+        itemLink.href = dailyLink;
+    } else {
+        // 일/월요일: 기존 사주 기반 링크 사용
+        const randomUrl = el.links[Math.floor(Math.random() * el.links.length)];
+        itemLink.href = randomUrl || el.links[0];
+    }
 
     itemLink.textContent = `🎁 행운의 아이템: ${el.name.split('(')[0]} 기운 보충하기`;
     // Open in new tab?
