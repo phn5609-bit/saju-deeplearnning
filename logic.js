@@ -126,24 +126,63 @@ document.getElementById('btn-close-ad').addEventListener('click', function () {
 const ELEMENTS = {
     WOOD: {
         name: '목(성장)', color: '#4caf50', numbers: [3, 8], direction: '동쪽',
-        link: 'https://link.coupang.com/a/dPz3uN' // 나무 반지
+        health: '간 건강과 신경성 스트레스를 주의하세요. 산림욕이나 등산이 최고의 개운법입니다.',
+        // Keywords: 편백나무 베개, 고급 원목 도장, 우드 스피커, 대나무 돗자리, 등산 스틱
+        links: [
+            'https://link.coupang.com/a/dPz3uN', // Existing (Ring)
+            '', // Placeholder 2
+            '', // Placeholder 3
+            '', // Placeholder 4
+            ''  // Placeholder 5
+        ]
     },
     FIRE: {
         name: '화(열정)', color: '#e53935', numbers: [2, 7], direction: '남쪽',
-        link: 'https://link.coupang.com/a/dPz6mV' // 빨간 양말/지갑
+        health: '심장과 혈관 건강을 챙기셔야 합니다. 유산소 운동으로 땀을 내는 것이 좋습니다.',
+        // Keywords: 레드 실크 스카프, 고급 캔들 워머, 홍삼 선물세트, 전기 히터, 게이밍 의자 (레드)
+        links: [
+            'https://link.coupang.com/a/dPz6mV', // Existing (Socks/Wallet)
+            '',
+            '',
+            '',
+            ''
+        ]
     },
     EARTH: {
         name: '토(신용)', color: '#ffb300', numbers: [0, 5], direction: '중앙',
-        link: 'https://link.coupang.com/a/dPz7EI' // 황토 매트
+        health: '위장 등 소화기 계통이 약할 수 있습니다. 규칙적인 식습관과 코어 운동이 필요합니다.',
+        // Keywords: 황토 흙침대 매트, 고급 도자기 그릇, 옐로우 침구 세트, 금부엉이 장식, 유산균 (골드)
+        links: [
+            'https://link.coupang.com/a/dPz7EI', // Existing (Mat)
+            '',
+            '',
+            '',
+            ''
+        ]
     },
     METAL: {
         name: '금(결단)', color: '#455a64', numbers: [4, 9], direction: '서쪽',
-        link: 'https://link.coupang.com/a/dPz85Z' // 메탈 시계
+        health: '폐와 호흡기, 피부 트러블을 조심하세요. 맑은 공기를 마시며 근력 운동을 하세요.',
+        // Keywords: 메탈 시계, 은수저 세트, 고급 텀블러, 공기청정기 (화이트), 백색 가전
+        links: [
+            'https://link.coupang.com/a/dPz85Z', // Existing (Watch)
+            '',
+            '',
+            '',
+            ''
+        ]
     },
     WATER: {
         name: '수(지혜)', color: '#1565c0', numbers: [1, 6], direction: '북쪽',
-        // Randomly pick one of two wallets
-        link: Math.random() < 0.5 ? 'https://link.coupang.com/a/dPAdYI' : 'https://link.coupang.com/a/dPAdYI'
+        health: '신장과 방광, 몸이 붓는 것을 주의하세요. 수영이나 스트레칭으로 순환을 도와주세요.',
+        // Keywords: 고급 검정 만년필, 블랙 선글라스, 남성용 서류가방, 검정 롱패딩, 블랙 디퓨저
+        links: [
+            'https://link.coupang.com/a/dPAdYI', // Existing (Wallet 1)
+            'https://link.coupang.com/a/dPAdYI', // Existing (Wallet 2)
+            '',
+            '',
+            ''
+        ]
     }
 };
 
@@ -181,7 +220,7 @@ function displayResult(res) {
 
     document.getElementById('desc-total').innerText = `딥러닝 분석 결과, 귀하에게는 [${el.name}] 기운의 보강이 시급합니다.`;
     document.getElementById('desc-wealth').innerText = `${el.direction} 방향의 귀인을 찾으세요. 행운의 숫자는 ${el.numbers.join(', ')}입니다.`;
-    document.getElementById('desc-health').innerText = `명상을 통해 기운을 다스리십시오.`;
+    document.getElementById('desc-health').innerText = el.health;
 
     // Generate Lotto List
     const nums = [];
@@ -205,8 +244,13 @@ function displayResult(res) {
 
     // Affiliate Link    // 4. Update Lucky Item Link
     const itemLink = document.getElementById('lucky-item-link');
-    // Direct Affiliate Link
-    itemLink.href = el.link;
+
+    // Pick Random Link from the array (5 items)
+    const randomUrl = el.links[Math.floor(Math.random() * el.links.length)];
+
+    // Safety check: if empty string (placeholder), fallback to first item
+    itemLink.href = randomUrl || el.links[0];
+
     itemLink.textContent = `🎁 행운의 아이템: ${el.name.split('(')[0]} 기운 보충하기`;
     // Open in new tab?
     itemLink.target = "_blank";
