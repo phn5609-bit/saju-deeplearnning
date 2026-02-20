@@ -123,110 +123,48 @@ document.getElementById('btn-close-ad').addEventListener('click', function () {
 });
 
 
-// --- 요일별 쿠팡 파트너스 링크 ---
-// 0=일, 1=월, 2=화, 3=수, 4=목, 5=금, 6=토
-const DAILY_COUPANG_LINKS = {
-    4: [ // 목요일
-        'https://link.coupang.com/a/dPAyhD',
-        'https://link.coupang.com/a/dPAzXl',
-        'https://link.coupang.com/a/dPABEk',
-        'https://link.coupang.com/a/dPACUx'
-    ],
-    2: [ // 화요일
-        'https://link.coupang.com/a/dPAEmy',
-        'https://link.coupang.com/a/dPAFew',
-        'https://link.coupang.com/a/dPAGyD',
-        'https://link.coupang.com/a/dPAJl5'
-    ],
-    6: [ // 토요일
-        'https://link.coupang.com/a/dPAKmu',
-        'https://link.coupang.com/a/dPAK4P',
-        'https://link.coupang.com/a/dPALDw',
-        'https://link.coupang.com/a/dPAMEC'
-    ],
-    5: [ // 금요일
-        'https://link.coupang.com/a/dPAN39',
-        'https://link.coupang.com/a/dPAOtD',
-        'https://link.coupang.com/a/dPAPSt',
-        'https://link.coupang.com/a/dPAQZb'
-    ],
-    3: [ // 수요일
-        'https://link.coupang.com/a/dPATGA',
-        'https://link.coupang.com/a/dPAUou',
-        'https://link.coupang.com/a/dPAXb9',
-        'https://link.coupang.com/a/dPAXb9'
-    ]
-};
 
-function getTodayCoupangLink() {
-    const today = new Date().getDay(); // 0=일, 1=월, 2=화, 3=수, 4=목, 5=금, 6=토
-    const links = DAILY_COUPANG_LINKS[today];
-    if (links && links.length > 0) {
-        return links[Math.floor(Math.random() * links.length)];
-    }
-    return null; // 일/월요일은 null (기존 사주 기반 링크 사용)
-}
 
 
 const ELEMENTS = {
     WOOD: {
         name: '목(성장)', color: '#4caf50', numbers: [3, 8], direction: '동쪽',
         health: '간 건강과 신경성 스트레스를 주의하세요. 산림욕이나 등산이 최고의 개운법입니다.',
-        // Keywords: 편백나무 베개, 고급 원목 도장, 우드 스피커, 대나무 돗자리, 등산 스틱
+        // Keywords: 편백나무 베개, 원목 도마, 우드 스피커, 대나무 돗자리, 등산 스틱
         links: [
-            'https://link.coupang.com/a/dPz3uN', // Existing (Ring)
-            '', // Placeholder 2
-            '', // Placeholder 3
-            '', // Placeholder 4
-            ''  // Placeholder 5
+            'https://link.coupang.com/a/dPz3uN'
         ]
     },
     FIRE: {
         name: '화(열정)', color: '#e53935', numbers: [2, 7], direction: '남쪽',
         health: '심장과 혈관 건강을 챙기셔야 합니다. 유산소 운동으로 땀을 내는 것이 좋습니다.',
-        // Keywords: 레드 실크 스카프, 고급 캔들 워머, 홍삼 선물세트, 전기 히터, 게이밍 의자 (레드)
+        // Keywords: 레드 실크 스카프, 고급 캔들 워머, 홍삼 선물세트, 전기 히터
         links: [
-            'https://link.coupang.com/a/dPz6mV', // Existing (Socks/Wallet)
-            '',
-            '',
-            '',
-            ''
+            'https://link.coupang.com/a/dPz6mV'
         ]
     },
     EARTH: {
         name: '토(신용)', color: '#ffb300', numbers: [10, 5], direction: '중앙',
         health: '위장 등 소화기 계통이 약할 수 있습니다. 규칙적인 식습관과 코어 운동이 필요합니다.',
-        // Keywords: 황토 흙침대 매트, 고급 도자기 그릇, 옐로우 침구 세트, 금부엉이 장식, 유산균 (골드)
+        // Keywords: 황토 흙침대 매트, 고급 도자기 그릇, 옐로우 침구 세트, 유산균
         links: [
-            'https://link.coupang.com/a/dPz7EI', // Existing (Mat)
-            '',
-            '',
-            '',
-            ''
+            'https://link.coupang.com/a/dPz7EI'
         ]
     },
     METAL: {
         name: '금(결단)', color: '#455a64', numbers: [4, 9], direction: '서쪽',
         health: '폐와 호흡기, 피부 트러블을 조심하세요. 맑은 공기를 마시며 근력 운동을 하세요.',
-        // Keywords: 메탈 시계, 은수저 세트, 고급 텀블러, 공기청정기 (화이트), 백색 가전
+        // Keywords: 메탈 시계, 은수저 세트, 공기청정기, 백색 가전
         links: [
-            'https://link.coupang.com/a/dPz85Z', // Existing (Watch)
-            '',
-            '',
-            '',
-            ''
+            'https://link.coupang.com/a/dPz85Z'
         ]
     },
     WATER: {
         name: '수(지혜)', color: '#1565c0', numbers: [1, 6], direction: '북쪽',
         health: '신장과 방광, 몸이 붓는 것을 주의하세요. 수영이나 스트레칭으로 순환을 도와주세요.',
-        // Keywords: 고급 검정 만년필, 블랙 선글라스, 남성용 서류가방, 검정 롱패딩, 블랙 디퓨저
+        // Keywords: 고급 검정 만년필, 블랙 선글라스, 남성용 서류가방, 블랙 디퓨저
         links: [
-            'https://link.coupang.com/a/dPAdYI', // Existing (Wallet 1)
-            'https://link.coupang.com/a/dPAdYI', // Existing (Wallet 2)
-            '',
-            '',
-            ''
+            'https://link.coupang.com/a/dPAdYI'
         ]
     }
 };
