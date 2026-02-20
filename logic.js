@@ -1,14 +1,65 @@
 // Saju Logic & Lotto Ad-Gate
 console.log("Logic Loaded");
 
+// --- Initialization ---
+document.addEventListener('DOMContentLoaded', function () {
+    initDateSelectors();
+
+    // Default to 1990-01-01
+    document.getElementById('birth-year').value = '1990';
+    document.getElementById('birth-month').value = '1';
+    document.getElementById('birth-day').value = '1';
+});
+
+function initDateSelectors() {
+    const yearSel = document.getElementById('birth-year');
+    const monthSel = document.getElementById('birth-month');
+    const daySel = document.getElementById('birth-day');
+
+    // Years: 1930 ~ 2025
+    const currentYear = new Date().getFullYear();
+    for (let y = 1930; y <= currentYear; y++) {
+        const opt = document.createElement('option');
+        opt.value = y;
+        opt.innerText = `${y}년`;
+        yearSel.appendChild(opt);
+    }
+
+    // Months
+    for (let m = 1; m <= 12; m++) {
+        const opt = document.createElement('option');
+        opt.value = m;
+        opt.innerText = `${m}월`;
+        monthSel.appendChild(opt);
+    }
+
+    // Days
+    for (let d = 1; d <= 31; d++) {
+        const opt = document.createElement('option');
+        opt.value = d;
+        opt.innerText = `${d}일`;
+        daySel.appendChild(opt);
+    }
+}
+
 // --- Global State ---
 let currentResult = null;
 
 // --- Event Listeners ---
 document.getElementById('saju-form').addEventListener('submit', function (e) {
     e.preventDefault();
-    const dateStr = document.getElementById('birthdate').value;
-    if (!dateStr) return alert("생년월일을 입력해주세요.");
+
+    // Read from Selects
+    const y = document.getElementById('birth-year').value;
+    const m = document.getElementById('birth-month').value;
+    const d = document.getElementById('birth-day').value;
+
+    if (!y || !m || !d) return alert("생년월일을 모두 선택해주세요.");
+
+    // Pad Month/Day
+    const mm = m.padStart(2, '0');
+    const dd = d.padStart(2, '0');
+    const dateStr = `${y}-${mm}-${dd}`;
 
     // Loading Transition
     document.getElementById('intro-message').style.display = 'none';
@@ -17,7 +68,7 @@ document.getElementById('saju-form').addEventListener('submit', function (e) {
     loading.classList.remove('hidden');
     loading.style.display = 'flex';
 
-    // 2s artificial delay for 'Analysis' (Interstitial)
+    // 2s artificial delay
     setTimeout(() => {
         loading.classList.add('hidden');
         loading.style.display = 'none';
@@ -153,10 +204,9 @@ function displayResult(res) {
 
     // Affiliate Link Logic (Coupang Search)
     const linkBtn = document.getElementById('lucky-item-link');
-    // Using simple search query for now. Later can be replaced with specific affiliate deep links.
     const searchUrl = `https://www.coupang.com/np/search?component=&q=${encodeURIComponent(el.searchQuery)}`;
     linkBtn.href = searchUrl;
-    linkBtn.target = "_blank"; // Open in new tab
+    linkBtn.target = "_blank";
 }
 
 function resetLottoGate() {
