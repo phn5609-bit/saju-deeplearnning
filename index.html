@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>명리학 딥러닝</title>
+    <link rel="stylesheet" href="style.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Serif+KR:wght@400;500;700;900&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="wing-ad left-wing"><span>광고 (160x600)</span></div>
+
+    <div class="dashboard-container">
+
+        <div class="main-grid">
+            <!-- Input -->
+            <aside class="panel input-panel">
+                <!-- Brand Title Here -->
+                <div class="logo">명리학 <span>딥러닝</span></div>
+                <span class="subtitle">Deep Learning Analysis</span>
+
+                <form id="saju-form" style="margin-top: 20px;">
+                    <div class="form-group">
+                        <label>📅 생년월일 (Date of Birth)</label>
+                        <input type="date" id="birthdate" required>
+                    </div>
+                    <div class="form-group">
+                        <label>⏰ 태어난 시간 (Time)</label>
+                        <select id="birthtime">
+                            <option value="unknown">모름</option>
+                            <option value="0">자시 (23:30~)</option>
+                            <option value="2">축시 (01:30~)</option>
+                            <option value="4">인시 (03:30~)</option>
+                            <option value="6">묘시 (05:30~)</option>
+                            <option value="8">진시 (07:30~)</option>
+                            <option value="10">사시 (09:30~)</option>
+                            <option value="12">오시 (11:30~)</option>
+                            <option value="14">미시 (13:30~)</option>
+                            <option value="16">신시 (15:30~)</option>
+                            <option value="18">유시 (17:30~)</option>
+                            <option value="20">술시 (19:30~)</option>
+                            <option value="22">해시 (21:30~)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>☯️ 성별 (Gender)</label>
+                        <div class="radio-group">
+                            <label><input type="radio" name="gender" value="m" checked> 남성</label>
+                            <label><input type="radio" name="gender" value="f"> 여성</label>
+                        </div>
+                    </div>
+                    <div style="font-size:0.75rem; color:#888; margin-bottom:15px;">
+                        * 딥러닝 엔진이 사주 패턴을 분석합니다.
+                    </div>
+                    <button type="submit" class="cta-button">운세 & 로또 번호 분석</button>
+                </form>
+                <div class="ad-banner" style="height:150px; margin-top:30px;">
+                    <span style="font-size:0.8rem;">Left Bar Ad</span>
+                </div>
+            </aside>
+
+            <!-- Result -->
+            <main class="panel result-panel">
+                <!-- Intro -->
+                <div id="intro-message"
+                    style="display:flex; flex-direction:column; justify-content:center; align-items:center; height:100%; text-align:center; color:#8d6e63;">
+                    <div style="font-size:4rem; margin-bottom:15px; opacity:0.5;">📜</div>
+                    <h2 style="color:var(--accent-color); margin:0;">운명의 알고리즘</h2>
+                    <p style="margin-top:10px;">좌측 정보를 입력하고<br><strong>[분석]</strong> 버튼을 눌러주세요.</p>
+                </div>
+
+                <!-- Loading Interstitial -->
+                <div id="loading-section" class="hidden"
+                    style="flex-direction:column; align-items:center; justify-content:center; height:100%;">
+                    <h3 style="color:#5d4037;">데이터 분석 중...</h3>
+                    <div class="ad-banner"
+                        style="width:300px; height:250px; background:#fff; border:2px solid #a1887f;">
+                        <strong style="margin-top:100px; display:block; text-align:center;">전면 광고 (300x250)</strong>
+                    </div>
+                    <p style="margin-top:15px; font-size:0.9rem; color:#795548;">빅데이터 대조 작업 진행 중 (3초...)</p>
+                </div>
+
+                <!-- Result Content -->
+                <div id="result-section" class="hidden">
+                    <div class="analysis-header">
+                        <h2>당신의 부족한 기운</h2>
+                        <div id="lacking-element" class="highlight">-</div>
+                    </div>
+
+                    <div class="result-card" style="border-left-color: var(--accent-sub);">
+                        <h4>🔮 총운 (Total Luck)</h4>
+                        <p id="desc-total">...</p>
+                    </div>
+
+                    <!-- Ad REMOVED here -->
+
+                    <div class="result-card" style="border-left-color: var(--accent-warn);">
+                        <h4>💰 재물/직업운</h4>
+                        <p id="desc-wealth">...</p>
+                    </div>
+
+                    <div class="result-card" style="border-left-color: var(--accent-color);">
+                        <h4>❤️ 건강/방위운</h4>
+                        <p id="desc-health">...</p>
+                    </div>
+
+                    <!-- Lotto Ad-Gate -->
+                    <div class="lotto-section">
+                        <h3 style="margin:0 0 15px 0; color:#3e2723;">🎲 추천 로또 번호</h3>
+
+                        <div id="lotto-numbers" class="lotto-row">
+                            <!-- JS fills this -->
+                        </div>
+
+                        <!-- 1. Initial Gate -->
+                        <div id="lotto-gate-1" class="lotto-gate-overlay">
+                            <div class="gate-msg">🔒 번호가 잠겨있습니다</div>
+                            <button id="btn-unlock" class="gate-btn" style="background:#5d4037;">추천 로또번호 확인</button>
+                        </div>
+
+                        <!-- 2. Timer Gate (Hidden) -->
+                        <div id="lotto-gate-2" class="lotto-gate-overlay hidden">
+                            <div class="gate-msg">번호 추출 중... <span id="ad-timer"
+                                    style="color:#ffeb3b; font-size:1.5rem;">5</span>초</div>
+                            <!-- Mock Ad -->
+                            <div class="ad-banner"
+                                style="width:250px; height:100px; background:white; margin-bottom:15px;">
+                                <span>광고 배너</span>
+                            </div>
+                            <button id="btn-close-ad" class="close-ad-btn hidden">✖ 번호 확인하기</button>
+                        </div>
+                    </div>
+
+                    <div style="margin-top:30px; text-align:center;">
+                        <a href="#" id="lucky-item-link" class="shop-button">🎁 행운 아이템 추천</a>
+                        <div style="font-size:0.75rem; margin-top:8px; color:#aaa;">(나에게 필요한 기운 보충하기)</div>
+                    </div>
+                </div>
+            </main>
+
+            <!-- Sidebar -->
+            <aside class="panel ad-sidebar">
+                <h4 style="text-align:center; color:#bbb; border-bottom:1px solid #ddd; padding-bottom:10px;">SPONSORED
+                </h4>
+                <div class="ad-banner" style="height:250px; margin-bottom:20px;"><span>Sidebar Ad 1</span></div>
+                <div class="ad-banner" style="height:250px;"><span>Sidebar Ad 2</span></div>
+            </aside>
+        </div>
+    </div>
+
+    <div class="wing-ad right-wing"><span>광고 (160x600)</span></div>
+    <script src="logic.js"></script>
+</body>
+
+</html>
