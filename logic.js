@@ -132,11 +132,11 @@ const ELEMENTS = {
         health: '간 건강과 신경성 스트레스를 주의하세요. 산림욕이나 등산이 최고의 개운법입니다.',
         // Keywords: 편백나무 베개, 원목 도마, 우드 스피커, 대나무 돗자리, 등산 스틱
         links: [
-            'https://link.coupang.com/a/dPz3uN',
-            'https://link.coupang.com/a/dPAyhD',
-            'https://link.coupang.com/a/dPAzXl',
-            'https://link.coupang.com/a/dPABEk',
-            'https://link.coupang.com/a/dPACUx'
+            { name: '편백나무 베개', url: 'https://link.coupang.com/a/dPz3uN' },
+            { name: '원목 도마', url: 'https://link.coupang.com/a/dPAyhD' },
+            { name: '우드 스피커', url: 'https://link.coupang.com/a/dPAzXl' },
+            { name: '대나무 돗자리', url: 'https://link.coupang.com/a/dPABEk' },
+            { name: '등산 스틱', url: 'https://link.coupang.com/a/dPACUx' }
         ]
     },
     FIRE: {
@@ -144,11 +144,11 @@ const ELEMENTS = {
         health: '심장과 혈관 건강을 챙기셔야 합니다. 유산소 운동으로 땀을 내는 것이 좋습니다.',
         // Keywords: 레드 실크 스카프, 고급 캔들 워머, 홍삼 선물세트, 전기 히터
         links: [
-            'https://link.coupang.com/a/dPz6mV',
-            'https://link.coupang.com/a/dPAEmy',
-            'https://link.coupang.com/a/dPAFew',
-            'https://link.coupang.com/a/dPAGyD',
-            'https://link.coupang.com/a/dPAJl5'
+            { name: '레드 실크 스카프', url: 'https://link.coupang.com/a/dPz6mV' },
+            { name: '고급 캔들 워머', url: 'https://link.coupang.com/a/dPAEmy' },
+            { name: '홍삼 선물세트', url: 'https://link.coupang.com/a/dPAFew' },
+            { name: '가죽 다이어리', url: 'https://link.coupang.com/a/dPAGyD' },
+            { name: '전기 히터', url: 'https://link.coupang.com/a/dPAJl5' }
         ]
     },
     EARTH: {
@@ -156,11 +156,11 @@ const ELEMENTS = {
         health: '위장 등 소화기 계통이 약할 수 있습니다. 규칙적인 식습관과 코어 운동이 필요합니다.',
         // Keywords: 황토 흙침대 매트, 고급 도자기 그릇, 옐로우 침구 세트, 유산균
         links: [
-            'https://link.coupang.com/a/dPz7EI',
-            'https://link.coupang.com/a/dPAKmu',
-            'https://link.coupang.com/a/dPAK4P',
-            'https://link.coupang.com/a/dPALDw',
-            'https://link.coupang.com/a/dPAMEC'
+            { name: '황토 흙침대 매트', url: 'https://link.coupang.com/a/dPz7EI' },
+            { name: '고급 도자기 그릇', url: 'https://link.coupang.com/a/dPAKmu' },
+            { name: '옐로우 침구 세트', url: 'https://link.coupang.com/a/dPAK4P' },
+            { name: '장건강 유산균', url: 'https://link.coupang.com/a/dPALDw' },
+            { name: '호박즙 골드', url: 'https://link.coupang.com/a/dPAMEC' }
         ]
     },
     METAL: {
@@ -168,11 +168,11 @@ const ELEMENTS = {
         health: '폐와 호흡기, 피부 트러블을 조심하세요. 맑은 공기를 마시며 근력 운동을 하세요.',
         // Keywords: 메탈 시계, 은수저 세트, 공기청정기, 백색 가전
         links: [
-            'https://link.coupang.com/a/dPz85Z',
-            'https://link.coupang.com/a/dPAN39',
-            'https://link.coupang.com/a/dPAOtD',
-            'https://link.coupang.com/a/dPAPSt',
-            'https://link.coupang.com/a/dPAQZb'
+            { name: '메탈 손목시계', url: 'https://link.coupang.com/a/dPz85Z' },
+            { name: '고급 은수저 세트', url: 'https://link.coupang.com/a/dPAN39' },
+            { name: '스마트 공기청정기', url: 'https://link.coupang.com/a/dPAOtD' },
+            { name: '백색 소형 가전', url: 'https://link.coupang.com/a/dPAPSt' },
+            { name: '화이트 디퓨저', url: 'https://link.coupang.com/a/dPAQZb' }
         ]
     },
     WATER: {
@@ -180,11 +180,11 @@ const ELEMENTS = {
         health: '신장과 방광, 몸이 붓는 것을 주의하세요. 수영이나 스트레칭으로 순환을 도와주세요.',
         // Keywords: 고급 검정 만년필, 블랙 선글라스, 남성용 서류가방, 블랙 디퓨저
         links: [
-            'https://link.coupang.com/a/dPAdYI',
-            'https://link.coupang.com/a/dPATGA',
-            'https://link.coupang.com/a/dPAUou',
-            'https://link.coupang.com/a/dPAXb9',
-            'https://link.coupang.com/a/dPAXb9'
+            { name: '고급 검정 만년필', url: 'https://link.coupang.com/a/dPAdYI' },
+            { name: '블랙 선글라스', url: 'https://link.coupang.com/a/dPATGA' },
+            { name: '남성용 서류가방', url: 'https://link.coupang.com/a/dPAUou' },
+            { name: '블랙 체리 디퓨저', url: 'https://link.coupang.com/a/dPAXb9' },
+            { name: '프리미엄 미네랄 워터', url: 'https://link.coupang.com/a/dPAXb9' }
         ]
     }
 };
@@ -389,9 +389,9 @@ function displayResult(res) {
 
     // 행운 아이템 링크 - 부족한 오행 기반 아이템 추천
     const itemLink = document.getElementById('lucky-item-link');
-    const randomUrl = el.links[Math.floor(Math.random() * el.links.length)];
-    itemLink.href = randomUrl || el.links[0];
-    itemLink.textContent = `🎁 행운의 아이템: ${el.name.split('(')[0]} 기운 보충하기`;
+    const randomObj = el.links[Math.floor(Math.random() * el.links.length)];
+    itemLink.href = randomObj.url || el.links[0].url;
+    itemLink.textContent = `🎁 행운의 아이템: ${randomObj.name || el.name.split('(')[0] + ' 기운 보충물'}`;
     itemLink.target = "_blank";
 }
 

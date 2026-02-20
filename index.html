@@ -29,7 +29,7 @@
 
 <body>
 
-    <div class="wing-ad left-wing"><span>광고 (160x600)</span></div>
+    <div class="wing-ad left-wing" style="display:none;"><span>광고 (160x600)</span></div>
 
     <div class="dashboard-container">
 
@@ -88,7 +88,7 @@
                     </div>
                     <button type="submit" class="cta-button">운세 & 로또 번호 분석</button>
                 </form>
-                <div class="ad-banner" style="height:150px; margin-top:30px;">
+                <div class="ad-banner" style="display:none; height:150px; margin-top:30px;">
                     <span style="font-size:0.8rem;">Left Bar Ad</span>
                 </div>
             </aside>
@@ -108,7 +108,7 @@
                     style="flex-direction:column; align-items:center; justify-content:center; height:100%;">
                     <h3 style="color:#5d4037;">데이터 분석 중...</h3>
                     <div class="ad-banner"
-                        style="width:300px; height:250px; background:#fff; border:2px solid #a1887f;">
+                        style="display:none; width:300px; height:250px; background:#fff; border:2px solid #a1887f;">
                         <strong style="margin-top:100px; display:block; text-align:center;">전면 광고 (300x250)</strong>
                     </div>
                     <p style="margin-top:15px; font-size:0.9rem; color:#795548;">빅데이터 대조 작업 진행 중 (3초...)</p>
@@ -159,7 +159,7 @@
                                     style="color:#ffeb3b; font-size:1.5rem;">5</span>초</div>
                             <!-- Mock Ad -->
                             <div class="ad-banner"
-                                style="width:250px; height:100px; background:white; margin-bottom:15px;">
+                                style="display:none; width:250px; height:100px; background:white; margin-bottom:15px;">
                                 <span>광고 배너</span>
                             </div>
                             <button id="btn-close-ad" class="close-ad-btn hidden">✖ 번호 확인하기</button>
@@ -181,11 +181,12 @@
             </main>
 
             <!-- Sidebar -->
-            <aside class="panel ad-sidebar">
+            <aside class="panel ad-sidebar" style="display:none;">
                 <h4 style="text-align:center; color:#bbb; border-bottom:1px solid #ddd; padding-bottom:10px;">SPONSORED
                 </h4>
-                <div class="ad-banner" style="height:250px; margin-bottom:20px;"><span>Sidebar Ad 1</span></div>
-                <div class="ad-banner" style="height:250px;"><span>Sidebar Ad 2</span></div>
+                <div class="ad-banner" style="display:none; height:250px; margin-bottom:20px;"><span>Sidebar Ad 1</span>
+                </div>
+                <div class="ad-banner" style="display:none; height:250px;"><span>Sidebar Ad 2</span></div>
             </aside>
         </div>
 
@@ -195,7 +196,7 @@
         </footer>
     </div>
 
-    <div class="wing-ad right-wing"><span>광고 (160x600)</span></div>
+    <div class="wing-ad right-wing" style="display:none;"><span>광고 (160x600)</span></div>
 
     <script src="logic.js?v=6"></script>
 </body>
