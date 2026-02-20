@@ -132,7 +132,11 @@ const ELEMENTS = {
         health: '간 건강과 신경성 스트레스를 주의하세요. 산림욕이나 등산이 최고의 개운법입니다.',
         // Keywords: 편백나무 베개, 원목 도마, 우드 스피커, 대나무 돗자리, 등산 스틱
         links: [
-            'https://link.coupang.com/a/dPz3uN'
+            'https://link.coupang.com/a/dPz3uN',
+            '여기에_목기운_링크_2를_넣으세요',
+            '여기에_목기운_링크_3을_넣으세요',
+            '여기에_목기운_링크_4를_넣으세요',
+            '여기에_목기운_링크_5를_넣으세요'
         ]
     },
     FIRE: {
@@ -140,7 +144,11 @@ const ELEMENTS = {
         health: '심장과 혈관 건강을 챙기셔야 합니다. 유산소 운동으로 땀을 내는 것이 좋습니다.',
         // Keywords: 레드 실크 스카프, 고급 캔들 워머, 홍삼 선물세트, 전기 히터
         links: [
-            'https://link.coupang.com/a/dPz6mV'
+            'https://link.coupang.com/a/dPz6mV',
+            '여기에_화기운_링크_2를_넣으세요',
+            '여기에_화기운_링크_3을_넣으세요',
+            '여기에_화기운_링크_4를_넣으세요',
+            '여기에_화기운_링크_5를_넣으세요'
         ]
     },
     EARTH: {
@@ -148,7 +156,11 @@ const ELEMENTS = {
         health: '위장 등 소화기 계통이 약할 수 있습니다. 규칙적인 식습관과 코어 운동이 필요합니다.',
         // Keywords: 황토 흙침대 매트, 고급 도자기 그릇, 옐로우 침구 세트, 유산균
         links: [
-            'https://link.coupang.com/a/dPz7EI'
+            'https://link.coupang.com/a/dPz7EI',
+            '여기에_토기운_링크_2를_넣으세요',
+            '여기에_토기운_링크_3을_넣으세요',
+            '여기에_토기운_링크_4를_넣으세요',
+            '여기에_토기운_링크_5를_넣으세요'
         ]
     },
     METAL: {
@@ -156,7 +168,11 @@ const ELEMENTS = {
         health: '폐와 호흡기, 피부 트러블을 조심하세요. 맑은 공기를 마시며 근력 운동을 하세요.',
         // Keywords: 메탈 시계, 은수저 세트, 공기청정기, 백색 가전
         links: [
-            'https://link.coupang.com/a/dPz85Z'
+            'https://link.coupang.com/a/dPz85Z',
+            '여기에_금기운_링크_2를_넣으세요',
+            '여기에_금기운_링크_3을_넣으세요',
+            '여기에_금기운_링크_4를_넣으세요',
+            '여기에_금기운_링크_5를_넣으세요'
         ]
     },
     WATER: {
@@ -164,7 +180,11 @@ const ELEMENTS = {
         health: '신장과 방광, 몸이 붓는 것을 주의하세요. 수영이나 스트레칭으로 순환을 도와주세요.',
         // Keywords: 고급 검정 만년필, 블랙 선글라스, 남성용 서류가방, 블랙 디퓨저
         links: [
-            'https://link.coupang.com/a/dPAdYI'
+            'https://link.coupang.com/a/dPAdYI',
+            '여기에_수기운_링크_2를_넣으세요',
+            '여기에_수기운_링크_3을_넣으세요',
+            '여기에_수기운_링크_4를_넣으세요',
+            '여기에_수기운_링크_5를_넣으세요'
         ]
     }
 };
@@ -210,12 +230,12 @@ function calculateSaju(dateStr, birthHour) {
 
     // 6. 종합 엔트로피 계산 (프라임 넘버 곱셈으로 해시 충돌 최소화)
     const combinedHash = (
-        (dayStemIndex * 7) + 
-        (dayBranchIndex * 11) + 
-        (yearStemIndex * 13) + 
-        (yearBranchIndex * 17) + 
-        (monthStemIndex * 19) + 
-        (hourStemOffset * 23) + 
+        (dayStemIndex * 7) +
+        (dayBranchIndex * 11) +
+        (yearStemIndex * 13) +
+        (yearBranchIndex * 17) +
+        (monthStemIndex * 19) +
+        (hourStemOffset * 23) +
         hourFactor +
         genderVal
     );
@@ -235,7 +255,7 @@ function calculateSaju(dateStr, birthHour) {
         METAL: ['FIRE', 'WOOD'],  // 화극금, 금극목
         WATER: ['EARTH', 'FIRE']  // 토극수, 수극화
     };
-    
+
     // 두 가지 부족한 기운 중 해시값에 따라 하나 선택
     const lackingChoiceIndex = (combinedHash % 2);
     const lacking = lackingMap[myElement][lackingChoiceIndex];
