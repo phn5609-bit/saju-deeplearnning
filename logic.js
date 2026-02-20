@@ -320,27 +320,11 @@ function displayResult(res) {
         container.appendChild(span);
     });
 
-    // Affiliate Link    // 4. Update Lucky Item Link
+    // 행운 아이템 링크 - 부족한 오행 기반 아이템 추천
     const itemLink = document.getElementById('lucky-item-link');
-
-    // 오늘 요일 기반 쿠팡 링크 우선 사용, 없으면 사주 기반 링크 사용
-    const dailyLink = getTodayCoupangLink();
-    if (dailyLink) {
-        itemLink.href = dailyLink;
-    } else {
-        // 일/월요일: 기존 사주 기반 링크 사용
-        const randomUrl = el.links[Math.floor(Math.random() * el.links.length)];
-        itemLink.href = randomUrl || el.links[0];
-    }
-
-    // 버튼 텍스트: 요일 링크면 "오늘의 행운 아이템", 오행 링크면 "기운 보충하기"
-    if (dailyLink) {
-        const dayNames = ['일', '월', '화', '수', '목', '금', '토'];
-        const dayName = dayNames[new Date().getDay()];
-        itemLink.textContent = `🎁 ${dayName}요일 행운의 추천 아이템`;
-    } else {
-        itemLink.textContent = `🎁 행운의 아이템: ${el.name.split('(')[0]} 기운 보충하기`;
-    }
+    const randomUrl = el.links[Math.floor(Math.random() * el.links.length)];
+    itemLink.href = randomUrl || el.links[0];
+    itemLink.textContent = `🎁 행운의 아이템: ${el.name.split('(')[0]} 기운 보충하기`;
     itemLink.target = "_blank";
 }
 
