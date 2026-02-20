@@ -133,10 +133,10 @@ const ELEMENTS = {
         // Keywords: 편백나무 베개, 원목 도마, 우드 스피커, 대나무 돗자리, 등산 스틱
         links: [
             'https://link.coupang.com/a/dPz3uN',
-            '여기에_목기운_링크_2를_넣으세요',
-            '여기에_목기운_링크_3을_넣으세요',
-            '여기에_목기운_링크_4를_넣으세요',
-            '여기에_목기운_링크_5를_넣으세요'
+            'https://link.coupang.com/a/dPAyhD',
+            'https://link.coupang.com/a/dPAzXl',
+            'https://link.coupang.com/a/dPABEk',
+            'https://link.coupang.com/a/dPACUx'
         ]
     },
     FIRE: {
@@ -145,10 +145,10 @@ const ELEMENTS = {
         // Keywords: 레드 실크 스카프, 고급 캔들 워머, 홍삼 선물세트, 전기 히터
         links: [
             'https://link.coupang.com/a/dPz6mV',
-            '여기에_화기운_링크_2를_넣으세요',
-            '여기에_화기운_링크_3을_넣으세요',
-            '여기에_화기운_링크_4를_넣으세요',
-            '여기에_화기운_링크_5를_넣으세요'
+            'https://link.coupang.com/a/dPAEmy',
+            'https://link.coupang.com/a/dPAFew',
+            'https://link.coupang.com/a/dPAGyD',
+            'https://link.coupang.com/a/dPAJl5'
         ]
     },
     EARTH: {
@@ -157,10 +157,10 @@ const ELEMENTS = {
         // Keywords: 황토 흙침대 매트, 고급 도자기 그릇, 옐로우 침구 세트, 유산균
         links: [
             'https://link.coupang.com/a/dPz7EI',
-            '여기에_토기운_링크_2를_넣으세요',
-            '여기에_토기운_링크_3을_넣으세요',
-            '여기에_토기운_링크_4를_넣으세요',
-            '여기에_토기운_링크_5를_넣으세요'
+            'https://link.coupang.com/a/dPAKmu',
+            'https://link.coupang.com/a/dPAK4P',
+            'https://link.coupang.com/a/dPALDw',
+            'https://link.coupang.com/a/dPAMEC'
         ]
     },
     METAL: {
@@ -169,10 +169,10 @@ const ELEMENTS = {
         // Keywords: 메탈 시계, 은수저 세트, 공기청정기, 백색 가전
         links: [
             'https://link.coupang.com/a/dPz85Z',
-            '여기에_금기운_링크_2를_넣으세요',
-            '여기에_금기운_링크_3을_넣으세요',
-            '여기에_금기운_링크_4를_넣으세요',
-            '여기에_금기운_링크_5를_넣으세요'
+            'https://link.coupang.com/a/dPAN39',
+            'https://link.coupang.com/a/dPAOtD',
+            'https://link.coupang.com/a/dPAPSt',
+            'https://link.coupang.com/a/dPAQZb'
         ]
     },
     WATER: {
@@ -181,10 +181,10 @@ const ELEMENTS = {
         // Keywords: 고급 검정 만년필, 블랙 선글라스, 남성용 서류가방, 블랙 디퓨저
         links: [
             'https://link.coupang.com/a/dPAdYI',
-            '여기에_수기운_링크_2를_넣으세요',
-            '여기에_수기운_링크_3을_넣으세요',
-            '여기에_수기운_링크_4를_넣으세요',
-            '여기에_수기운_링크_5를_넣으세요'
+            'https://link.coupang.com/a/dPATGA',
+            'https://link.coupang.com/a/dPAUou',
+            'https://link.coupang.com/a/dPAXb9',
+            'https://link.coupang.com/a/dPAXb9'
         ]
     }
 };
@@ -193,72 +193,44 @@ function calculateSaju(dateStr, birthHour) {
     const userDate = new Date(dateStr);
     const refDate = new Date('1900-01-01');
 
-    // 1. 일주 계산 파라미터 다양화
+    // 1. 일주 천간 계산 (1900-01-01 = 갑(0)일)
     const diffDays = Math.floor((userDate - refDate) / (1000 * 60 * 60 * 24));
     const dayStemIndex = ((diffDays % 10) + 10) % 10;
-    const dayBranchIndex = ((diffDays % 12) + 12) % 12;
 
-    // 2. 연주 계산 파라미터 다양화
+    // 2. 연주 천간 계산 (1900 = 경(6)년)
     const year = userDate.getFullYear();
-    const yearStemIndex = ((year - 1900) % 10 + 10) % 10;
-    const yearBranchIndex = ((year - 1900) % 12 + 12) % 12;
+    const yearStemIndex = ((year - 1900) % 10 + 10) % 10 * 1 % 10;
 
-    // 3. 월주 계산
+    // 3. 월주 천간 계산 (연간 × 2 + 월 × 2 기반)
     const month = userDate.getMonth() + 1;
-    const day = userDate.getDate();
-    // 일자 데이터도 월주 인덱스에 미세하게 개입시켜 엔트로피 증가
-    const monthStemIndex = (yearStemIndex * 2 + month + (day % 3)) % 10;
+    const monthStemBase = (yearStemIndex % 5) * 2;
+    const monthStemIndex = (monthStemBase + month + 1) % 10;
 
-    // 4. 시주 천간 계산 (시간에 따라 0~11 지지 → 천간 변환)
+    // 4. 시주 천간 계산 (시간에 따라 0~11 → 천간 배분)
     let hourStemOffset = 0;
-    let hourFactor = 0;
     if (birthHour !== 'unknown') {
         const h = parseInt(birthHour);
-        // 시간에 따른 가중치 크게 부여
+        // 자시~해시 12지지 → 시주 천간: 일간 × 2 + 시지 index
         const hourBranch = Math.floor(h / 2); // 0~11
         hourStemOffset = (dayStemIndex % 5) * 2 + hourBranch;
-        hourFactor = hourBranch * 3; // 시간에 따른 변동성 증폭
-    } else {
-        // 모름 선택 시 생일 해시값을 사용하여 고정 변동성 부여
-        hourFactor = (day * month) % 7;
     }
 
-    // 5. Gender Factor (Optional, but adds variety if we access it)
-    // To do this properly we need to grab the gender radio
-    const genderEl = document.querySelector('input[name="gender"]:checked');
-    const genderVal = genderEl ? (genderEl.value === 'm' ? 1 : 5) : 0;
-
-    // 6. 종합 엔트로피 계산 (프라임 넘버 곱셈으로 해시 충돌 최소화)
-    const combinedHash = (
-        (dayStemIndex * 7) +
-        (dayBranchIndex * 11) +
-        (yearStemIndex * 13) +
-        (yearBranchIndex * 17) +
-        (monthStemIndex * 19) +
-        (hourStemOffset * 23) +
-        hourFactor +
-        genderVal
-    );
-
-    const combinedIndex = combinedHash % 10;
+    // 5. 종합 천간 인덱스 (일주 + 시주 조합으로 다양성 확보)
+    const combinedIndex = (dayStemIndex + monthStemIndex + yearStemIndex + hourStemOffset) % 10;
 
     // 천간 → 오행 매핑: 갑을=목, 병정=화, 무기=토, 경신=금, 임계=수
     const stemToElement = ['WOOD', 'WOOD', 'FIRE', 'FIRE', 'EARTH', 'EARTH', 'METAL', 'METAL', 'WATER', 'WATER'];
     const myElement = stemToElement[combinedIndex];
 
-    // 상극 관계 (다양성을 위해 상생/상극 믹스)
-    // 내 기운이 강할 때 필요한 기운 매핑 (조금 더 다채롭게)
-    const lackingMap = {
-        WOOD: ['METAL', 'EARTH'], // 목극토, 금극목
-        FIRE: ['WATER', 'METAL'], // 수극화, 화극금
-        EARTH: ['WOOD', 'WATER'], // 목극토, 토극수
-        METAL: ['FIRE', 'WOOD'],  // 화극금, 금극목
-        WATER: ['EARTH', 'FIRE']  // 토극수, 수극화
+    // 상극 관계: 내 오행이 강하면 극당하는 오행이 부족
+    const opposites = {
+        WOOD: 'METAL',
+        FIRE: 'WATER',
+        EARTH: 'WOOD',
+        METAL: 'FIRE',
+        WATER: 'EARTH'
     };
-
-    // 두 가지 부족한 기운 중 해시값에 따라 하나 선택
-    const lackingChoiceIndex = (combinedHash % 2);
-    const lacking = lackingMap[myElement][lackingChoiceIndex];
+    const lacking = opposites[myElement];
 
     return { myElement, lacking, combinedIndex };
 }
@@ -285,25 +257,91 @@ function displayResult(res) {
 
     document.getElementById('desc-health').innerText = el.health;
 
-    // Generate Lotto List (1~45 범위, 중복 없음)
-    const nums = [];
+    // Generate 5 Balanced Lotto Combinations (1~45 범위, 중복 없음)
+    const seedNums = [];
     [el.numbers[0], el.numbers[1]].forEach(n => {
-        if (n && n >= 1 && n <= 45 && !nums.includes(n)) nums.push(n);
+        if (n && n >= 1 && n <= 45 && !seedNums.includes(n)) seedNums.push(n);
     });
-    while (nums.length < 6) {
-        let r = Math.floor(Math.random() * 45) + 1;
-        if (!nums.includes(r)) nums.push(r);
+
+    const lottoCombos = [];
+    let attempts = 0; // 안전장치 (무한루프 방지)
+
+    while (lottoCombos.length < 5 && attempts < 1000) {
+        attempts++;
+        let nums = [...seedNums];
+
+        while (nums.length < 6) {
+            let r = Math.floor(Math.random() * 45) + 1;
+            if (!nums.includes(r)) nums.push(r);
+        }
+        nums.sort((a, b) => a - b);
+
+        // 통계적 밸런스 체크 (홀짝 비율 2:4 ~ 4:2, 총합 120~180, 고저 비율 2:4 ~ 4:2, 연속번호 3개 이하)
+        let odds = nums.filter(n => n % 2 !== 0).length;
+        let sums = nums.reduce((acc, val) => acc + val, 0);
+        let lows = nums.filter(n => n <= 22).length;
+
+        let consecutive = 0;
+        for (let i = 0; i < 5; i++) {
+            if (nums[i + 1] - nums[i] === 1) consecutive++;
+        }
+
+        const isBalanced = (odds >= 2 && odds <= 4) &&
+            (sums >= 120 && sums <= 180) &&
+            (lows >= 2 && lows <= 4) &&
+            (consecutive <= 2);
+
+        if (isBalanced) {
+            const comboStr = nums.join(',');
+            // 중복 조합 체크
+            if (!lottoCombos.some(c => c.join(',') === comboStr)) {
+                lottoCombos.push(nums);
+            }
+        }
     }
-    nums.sort((a, b) => a - b);
+
+    // 만약 조건이 너무 까다로워 5개를 다 못 채웠다면(희박하지만), 그냥 일반 랜덤 추가
+    while (lottoCombos.length < 5) {
+        let nums = [...seedNums];
+        while (nums.length < 6) {
+            let r = Math.floor(Math.random() * 45) + 1;
+            if (!nums.includes(r)) nums.push(r);
+        }
+        nums.sort((a, b) => a - b);
+        const comboStr = nums.join(',');
+        if (!lottoCombos.some(c => c.join(',') === comboStr)) {
+            lottoCombos.push(nums);
+        }
+    }
 
     const container = document.getElementById('lotto-numbers');
     container.innerHTML = '';
-    nums.forEach(n => {
-        const span = document.createElement('span');
-        span.className = 'lotto-ball';
-        span.innerText = n;
-        span.style.background = getBallColor(n);
-        container.appendChild(span);
+
+    lottoCombos.forEach((combo, idx) => {
+        const row = document.createElement('div');
+        row.className = 'lotto-row';
+        row.style.display = 'flex';
+        row.style.alignItems = 'center';
+        row.style.justifyContent = 'center';
+        row.style.gap = '8px'; // 모바일 최적화를 위해 간격 조정
+        row.style.flexWrap = 'wrap'; // 화면 좁을 때 줄바꿈 허용
+
+        const label = document.createElement('span');
+        label.innerText = `[${idx + 1}세트]`;
+        label.style.fontWeight = 'bold';
+        label.style.color = '#8d6e63';
+        label.style.fontSize = '0.85rem';
+        label.style.marginRight = '4px';
+        row.appendChild(label);
+
+        combo.forEach(n => {
+            const span = document.createElement('span');
+            span.className = 'lotto-ball';
+            span.innerText = n;
+            span.style.background = getBallColor(n);
+            row.appendChild(span);
+        });
+        container.appendChild(row);
     });
 
     // 행운 아이템 링크 - 부족한 오행 기반 아이템 추천

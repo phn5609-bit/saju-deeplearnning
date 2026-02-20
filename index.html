@@ -21,7 +21,7 @@
     <!-- Google Search Console 소유권 확인 -->
     <meta name="google-site-verification" content="wjU88_xDzMwHG4SWj8LemmLqLXeR84L7Avod1R93_Sk" />
     <!-- 네이버 서치어드바이저 소유권 확인 -->
-    <meta name="naver-site-verification" content="38ab013c98f25bfafbde7ea40382d5738d987c33" />
+    <meta name="naver-site-verification" content="38ab013c98f250lafbde7ea40382d5738d987c33" />
     <!-- Google AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9599727000688854"
         crossorigin="anonymous"></script>
@@ -29,7 +29,7 @@
 
 <body>
 
-    <!-- Removed wing-ad left-wing placeholder -->
+    <div class="wing-ad left-wing"><span>광고 (160x600)</span></div>
 
     <div class="dashboard-container">
 
@@ -88,7 +88,9 @@
                     </div>
                     <button type="submit" class="cta-button">운세 & 로또 번호 분석</button>
                 </form>
-                <!-- Removed Left Bar Ad placeholder -->
+                <div class="ad-banner" style="height:150px; margin-top:30px;">
+                    <span style="font-size:0.8rem;">Left Bar Ad</span>
+                </div>
             </aside>
 
             <!-- Result -->
@@ -105,7 +107,10 @@
                 <div id="loading-section" class="hidden"
                     style="flex-direction:column; align-items:center; justify-content:center; height:100%;">
                     <h3 style="color:#5d4037;">데이터 분석 중...</h3>
-                    <!-- Removed Loading Interstitial Ad -->
+                    <div class="ad-banner"
+                        style="width:300px; height:250px; background:#fff; border:2px solid #a1887f;">
+                        <strong style="margin-top:100px; display:block; text-align:center;">전면 광고 (300x250)</strong>
+                    </div>
                     <p style="margin-top:15px; font-size:0.9rem; color:#795548;">빅데이터 대조 작업 진행 중 (3초...)</p>
                 </div>
 
@@ -137,7 +142,8 @@
                     <div class="lotto-section">
                         <h3 style="margin:0 0 15px 0; color:#3e2723;">🎲 추천 로또 번호</h3>
 
-                        <div id="lotto-numbers" class="lotto-row">
+                        <div id="lotto-numbers" class="lotto-container"
+                            style="display:flex; flex-direction:column; gap:12px; align-items:center;">
                             <!-- JS fills this -->
                         </div>
 
@@ -151,7 +157,11 @@
                         <div id="lotto-gate-2" class="lotto-gate-overlay hidden">
                             <div class="gate-msg">번호 추출 중... <span id="ad-timer"
                                     style="color:#ffeb3b; font-size:1.5rem;">5</span>초</div>
-                            <!-- Removed Mock Ad -->
+                            <!-- Mock Ad -->
+                            <div class="ad-banner"
+                                style="width:250px; height:100px; background:white; margin-bottom:15px;">
+                                <span>광고 배너</span>
+                            </div>
                             <button id="btn-close-ad" class="close-ad-btn hidden">✖ 번호 확인하기</button>
                         </div>
                     </div>
@@ -174,7 +184,8 @@
             <aside class="panel ad-sidebar">
                 <h4 style="text-align:center; color:#bbb; border-bottom:1px solid #ddd; padding-bottom:10px;">SPONSORED
                 </h4>
-                <!-- Removed Sidebar Ads for Auto Ads -->
+                <div class="ad-banner" style="height:250px; margin-bottom:20px;"><span>Sidebar Ad 1</span></div>
+                <div class="ad-banner" style="height:250px;"><span>Sidebar Ad 2</span></div>
             </aside>
         </div>
 
@@ -184,7 +195,7 @@
         </footer>
     </div>
 
-    <!-- Removed wing-ad right-wing placeholder -->
+    <div class="wing-ad right-wing"><span>광고 (160x600)</span></div>
 
     <script src="logic.js?v=6"></script>
 </body>
