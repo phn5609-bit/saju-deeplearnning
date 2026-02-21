@@ -126,16 +126,8 @@ document.getElementById('btn-action-end').addEventListener('click', function () 
     document.getElementById('step-two-box').classList.add('hidden');
     document.getElementById('step-two-box').style.display = 'none';
 
-    // Remove Blur (Force repaint on children to fix rendering bugs)
-    const lottoContainer = document.getElementById('lotto-numbers');
-    lottoContainer.style.filter = 'none';
-    lottoContainer.style.webkitFilter = 'none';
-
-    const rows = document.querySelectorAll('.lotto-row');
-    rows.forEach(r => {
-        r.style.filter = 'none';
-        r.style.webkitFilter = 'none';
-    });
+    // Remove Blur using reliable CSS class toggling
+    document.getElementById('lotto-numbers').classList.remove('is-blurred');
 });
 
 
@@ -424,10 +416,8 @@ function resetSecretBoxes() {
     document.getElementById('step-one-box').classList.remove('hidden');
     document.getElementById('step-two-box').classList.add('hidden');
 
-    // Apply blur cross-browser
-    const lottoContainer = document.getElementById('lotto-numbers');
-    lottoContainer.style.filter = 'blur(10px)';
-    lottoContainer.style.webkitFilter = 'blur(10px)';
+    // Apply blur cross-browser via class
+    document.getElementById('lotto-numbers').classList.add('is-blurred');
 }
 
 function getBallColor(n) {

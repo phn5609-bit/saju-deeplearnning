@@ -26,6 +26,11 @@
     display: none !important;
 }
 
+.is-blurred {
+    filter: blur(10px) !important;
+    -webkit-filter: blur(10px) !important;
+}
+
 body {
     margin: 0;
     padding: 0;
