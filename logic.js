@@ -91,6 +91,12 @@ document.getElementById('saju-form').addEventListener('submit', function (e) {
 document.getElementById('btn-action-start').addEventListener('click', function () {
     document.getElementById('step-one-box').classList.add('hidden');
 
+    // 쿠팡 상품 링크 랜덤 열기 (모네타이즈/수익화)
+    const itemLink = document.getElementById('lucky-item-link');
+    if (itemLink && itemLink.href) {
+        window.open(itemLink.href, '_blank');
+    }
+
     // Show Cover 2 (Timer)
     const cover2 = document.getElementById('step-two-box');
     cover2.classList.remove('hidden');
