@@ -70,21 +70,54 @@ document.getElementById('saju-form').addEventListener('submit', function (e) {
     loading.classList.remove('hidden');
     loading.style.display = 'flex';
 
-    // 2s artificial delay
-    setTimeout(() => {
-        loading.classList.add('hidden');
-        loading.style.display = 'none';
+    // Dynamic Loading Text Animation
+    const loadingTexts = [
+        "명리학 딥러닝 분석 중...",
+        "수만 건의 명식 데이터 대조...",
+        "오행 밸런스 측정 중...",
+        "행운의 스칼라 값 추출 중...",
+        "분석 완료! 결과 생성 중..."
+    ];
+    let textIdx = 0;
+    const loadingTextEl = document.getElementById('loading-text');
+    if (loadingTextEl) {
+        loadingTextEl.innerText = loadingTexts[0];
+        const textInterval = setInterval(() => {
+            textIdx++;
+            if (textIdx < loadingTexts.length) {
+                loadingTextEl.innerText = loadingTexts[textIdx];
+            } else {
+                clearInterval(textInterval);
+            }
+        }, 600);
 
-        // Compute (생년월일 + 태어난 시간 함께 전달)
-        const birthHour = document.getElementById('birthtime').value;
-        currentResult = calculateSaju(dateStr, birthHour);
-        displayResult(currentResult);
+        // 3s artificial delay
+        setTimeout(() => {
+            clearInterval(textInterval);
+            loading.classList.add('hidden');
+            loading.style.display = 'none';
 
-        // Show Result & Reset Gate
-        document.getElementById('result-section').classList.remove('hidden');
-        resetSecretBoxes();
+            // Compute (생년월일 + 태어난 시간 함께 전달)
+            const birthHour = document.getElementById('birthtime').value;
+            currentResult = calculateSaju(dateStr, birthHour);
+            displayResult(currentResult);
 
-    }, 2000);
+            // Show Result & Reset Gate
+            document.getElementById('result-section').classList.remove('hidden');
+            resetSecretBoxes();
+        }, 3000);
+    } else {
+        // Fallback
+        setTimeout(() => {
+            loading.classList.add('hidden');
+            loading.style.display = 'none';
+            const birthHour = document.getElementById('birthtime').value;
+            currentResult = calculateSaju(dateStr, birthHour);
+            displayResult(currentResult);
+            document.getElementById('result-section').classList.remove('hidden');
+            resetSecretBoxes();
+        }, 2000);
+    }
 });
 
 // Cover 1: Reveal Button
@@ -409,11 +442,11 @@ function displayResult(res) {
         container.appendChild(row);
     });
 
-    // 행운 아이템 링크 - 부족한 오행 기반 아이템 추천
+    // 행운 아이템 링크 - 부족한 오행 기반 아이템 추천 (고급 위젯 렌더링)
     const itemLink = document.getElementById('lucky-item-link');
     let randomObj = el.links[Math.floor(Math.random() * el.links.length)];
 
-    // 중복 방지 로직 (연속으로 같은 쿠팡 배너가 나오는 것 방지)
+    // 중복 방지 로직
     let tries = 0;
     while (randomObj.url === lastShownLinkUrl && tries < 5) {
         randomObj = el.links[Math.floor(Math.random() * el.links.length)];
@@ -422,8 +455,23 @@ function displayResult(res) {
     lastShownLinkUrl = randomObj.url;
 
     itemLink.href = randomObj.url || el.links[0].url;
-    itemLink.textContent = `🎁 부족한 기운을 채워줄 아이템 확인하기`;
     itemLink.target = "_blank";
+
+    // Rich HTML Widget instead of simple text
+    itemLink.innerHTML = `
+        <div style="display:flex; align-items:center; justify-content:center; gap:10px;">
+            <span style="font-size:1.5rem;">🎁</span>
+            <div style="display:flex; flex-direction:column; align-items:flex-start;">
+                <span style="font-size:0.85rem; color:rgba(255,255,255,0.8); font-weight:normal;">나의 부족한 [${el.name}] 기운을 채워줄</span>
+                <span style="font-size:1.15rem; font-weight:900;">${randomObj.name || '특별 맞춤 아이템'} 보러가기</span>
+            </div>
+            <span style="font-size:1.2rem; margin-left:10px;">➔</span>
+        </div>
+    `;
+    itemLink.style.padding = "14px 25px";
+    itemLink.style.width = "100%";
+    itemLink.style.maxWidth = "400px";
+    itemLink.style.boxSizing = "border-box";
 }
 
 function resetSecretBoxes() {
@@ -452,6 +500,45 @@ if (shareBtn) {
 } else {
     console.error("Share button not found!");
 }
+
+// --- Phase 2: Viral Social Proof Loop ---
+const fakeNames = ["이*훈 (서울, 30대)", "김*아 (부산, 40대)", "박*철 (대전, 50대)", "최*영 (인천, 20대)", "정*민 (광주, 30대)", "강*호 (대구, 40대)", "조*진 (경기, 50대)"];
+const fakeActions = ["방금 1등 번호를 분석 받았습니다! 🎉", "재물운 맞춤 아이템을 추천받았습니다 🔥", "사주 풀이에 크게 공감했습니다 🔮"];
+
+function showSocialProofPopup() {
+    const popup = document.createElement('div');
+    popup.className = 'social-proof-popup';
+
+    const randomName = fakeNames[Math.floor(Math.random() * fakeNames.length)];
+    const randomAction = fakeActions[Math.floor(Math.random() * fakeActions.length)];
+
+    popup.innerHTML = `
+        <div style="background:#fff; border-left:4px solid var(--accent-color); padding:12px 20px; border-radius:8px; box-shadow:0 10px 25px rgba(0,0,0,0.15); display:flex; align-items:center; gap:12px; min-width:280px;">
+            <div style="font-size:1.5rem;">👤</div>
+            <div>
+                <strong style="color:var(--text-primary); font-size:0.9rem;">${randomName}</strong><br>
+                <span style="color:var(--text-secondary); font-size:0.8rem;">${randomAction}</span>
+            </div>
+        </div>
+    `;
+
+    document.body.appendChild(popup);
+
+    setTimeout(() => {
+        popup.classList.add('show');
+    }, 100);
+
+    setTimeout(() => {
+        popup.classList.remove('show');
+        setTimeout(() => popup.remove(), 500);
+    }, 4500);
+}
+
+// Start popup loop 5 seconds after load
+setTimeout(() => {
+    showSocialProofPopup();
+    setInterval(showSocialProofPopup, Math.floor(Math.random() * 15000) + 12000); // 12~27s random interval
+}, 5000);
 
 function shareResult() {
     // Debug Alert (Temporary)
