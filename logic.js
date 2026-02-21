@@ -82,22 +82,22 @@ document.getElementById('saju-form').addEventListener('submit', function (e) {
 
         // Show Result & Reset Gate
         document.getElementById('result-section').classList.remove('hidden');
-        resetLottoCover();
+        resetSecretBoxes();
 
     }, 2000);
 });
 
 // Cover 1: Reveal Button
-document.getElementById('btn-reveal').addEventListener('click', function () {
-    document.getElementById('lotto-cover-1').classList.add('hidden');
+document.getElementById('btn-action-start').addEventListener('click', function () {
+    document.getElementById('step-one-box').classList.add('hidden');
 
     // Show Cover 2 (Timer)
-    const cover2 = document.getElementById('lotto-cover-2');
+    const cover2 = document.getElementById('step-two-box');
     cover2.classList.remove('hidden');
     cover2.style.display = 'flex';
 
-    const timerSpan = document.getElementById('reveal-timer');
-    const closeBtn = document.getElementById('btn-finish-reveal');
+    const timerSpan = document.getElementById('wait-sec-count');
+    const closeBtn = document.getElementById('btn-action-end');
     closeBtn.classList.add('hidden'); // Ensure hidden initially
 
     let timeLeft = 5;
@@ -116,9 +116,9 @@ document.getElementById('btn-reveal').addEventListener('click', function () {
 });
 
 // Cover 2: Close Button
-document.getElementById('btn-finish-reveal').addEventListener('click', function () {
-    document.getElementById('lotto-cover-2').classList.add('hidden');
-    document.getElementById('lotto-cover-2').style.display = 'none';
+document.getElementById('btn-action-end').addEventListener('click', function () {
+    document.getElementById('step-two-box').classList.add('hidden');
+    document.getElementById('step-two-box').style.display = 'none';
 
     // Remove Blur
     document.getElementById('lotto-numbers').style.filter = 'none';
@@ -406,9 +406,9 @@ function displayResult(res) {
     itemLink.target = "_blank";
 }
 
-function resetLottoCover() {
-    document.getElementById('lotto-cover-1').classList.remove('hidden');
-    document.getElementById('lotto-cover-2').classList.add('hidden');
+function resetSecretBoxes() {
+    document.getElementById('step-one-box').classList.remove('hidden');
+    document.getElementById('step-two-box').classList.add('hidden');
     document.getElementById('lotto-numbers').style.filter = 'blur(10px)';
 }
 

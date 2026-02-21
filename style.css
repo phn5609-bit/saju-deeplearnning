@@ -265,8 +265,8 @@ select:focus {
     text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.2);
 }
 
-/* Cover Overlay */
-.lotto-cover-overlay {
+/* Dimmed BG Overlay */
+.secret-dimmed-bg {
     position: absolute;
     top: 0;
     left: 0;
@@ -280,18 +280,20 @@ select:focus {
     flex-direction: column;
 }
 
-.lotto-cover-overlay:not(.hidden) {
+.secret-dimmed-bg:not(.hidden) {
     display: flex !important;
+    opacity: 1 !important;
+    visibility: visible !important;
 }
 
-.cover-msg {
+.status-text-info {
     color: white;
     margin-bottom: 15px;
     font-weight: bold;
     font-size: 1.1rem;
 }
 
-.cover-btn {
+.start-action-btn {
     background: #d84315;
     color: white;
     border: none;
@@ -303,12 +305,12 @@ select:focus {
     font-size: 1rem;
 }
 
-.cover-btn:active {
+.start-action-btn:active {
     transform: translateY(4px);
     box-shadow: none;
 }
 
-.close-reveal-btn {
+.end-action-btn {
     background: transparent;
     color: white;
     border: 2px solid white;
@@ -319,7 +321,7 @@ select:focus {
     margin-top: 10px;
 }
 
-.close-reveal-btn:hover {
+.end-action-btn:hover {
     background: rgba(255, 255, 255, 0.2);
 }
 
