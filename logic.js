@@ -1,6 +1,8 @@
 // Saju Logic & Lotto Ad-Gate
 console.log("Logic Loaded");
 
+let lastShownLinkUrl = null; // 중복 배너 방지용 트래커
+
 // --- Initialization ---
 document.addEventListener('DOMContentLoaded', function () {
     initDateSelectors();
@@ -80,22 +82,22 @@ document.getElementById('saju-form').addEventListener('submit', function (e) {
 
         // Show Result & Reset Gate
         document.getElementById('result-section').classList.remove('hidden');
-        resetLottoGate();
+        resetLottoCover();
 
     }, 2000);
 });
 
-// Gate 1: Unlock Button
-document.getElementById('btn-unlock').addEventListener('click', function () {
-    document.getElementById('lotto-gate-1').classList.add('hidden');
+// Cover 1: Reveal Button
+document.getElementById('btn-reveal').addEventListener('click', function () {
+    document.getElementById('lotto-cover-1').classList.add('hidden');
 
-    // Show Gate 2 (Timer)
-    const gate2 = document.getElementById('lotto-gate-2');
-    gate2.classList.remove('hidden');
-    gate2.style.display = 'flex';
+    // Show Cover 2 (Timer)
+    const cover2 = document.getElementById('lotto-cover-2');
+    cover2.classList.remove('hidden');
+    cover2.style.display = 'flex';
 
-    const timerSpan = document.getElementById('ad-timer');
-    const closeBtn = document.getElementById('btn-close-ad');
+    const timerSpan = document.getElementById('reveal-timer');
+    const closeBtn = document.getElementById('btn-finish-reveal');
     closeBtn.classList.add('hidden'); // Ensure hidden initially
 
     let timeLeft = 5;
@@ -113,10 +115,10 @@ document.getElementById('btn-unlock').addEventListener('click', function () {
     }, 1000);
 });
 
-// Gate 2: Close Button
-document.getElementById('btn-close-ad').addEventListener('click', function () {
-    document.getElementById('lotto-gate-2').classList.add('hidden');
-    document.getElementById('lotto-gate-2').style.display = 'none';
+// Cover 2: Close Button
+document.getElementById('btn-finish-reveal').addEventListener('click', function () {
+    document.getElementById('lotto-cover-2').classList.add('hidden');
+    document.getElementById('lotto-cover-2').style.display = 'none';
 
     // Remove Blur
     document.getElementById('lotto-numbers').style.filter = 'none';
@@ -180,11 +182,11 @@ const ELEMENTS = {
         health: '신장과 방광, 몸이 붓는 것을 주의하세요. 수영이나 스트레칭으로 순환을 도와주세요.',
         // Keywords: 고급 검정 만년필, 블랙 선글라스, 남성용 서류가방, 블랙 디퓨저
         links: [
-            { name: '고급 검정 만년필', url: 'https://link.coupang.com/a/dPAdYI' },
-            { name: '블랙 선글라스', url: 'https://link.coupang.com/a/dPATGA' },
+            { name: '블랙 게이밍 컴퓨터 본체', url: 'https://link.coupang.com/a/dPAdYI' },
+            { name: '코치 가죽 반지갑(블랙)', url: 'https://link.coupang.com/a/dPATGA' },
             { name: '남성용 서류가방', url: 'https://link.coupang.com/a/dPAUou' },
-            { name: '블랙 체리 디퓨저', url: 'https://link.coupang.com/a/dPAXb9' },
-            { name: '프리미엄 미네랄 워터', url: 'https://link.coupang.com/a/dPAXb9' }
+            { name: 'PAXA 스마트 안경', url: 'https://link.coupang.com/a/dPAXb9' },
+            { name: '프리미엄 미네랄 워터', url: 'https://link.coupang.com/a/dPAXb0' }
         ]
     }
 };
@@ -389,15 +391,24 @@ function displayResult(res) {
 
     // 행운 아이템 링크 - 부족한 오행 기반 아이템 추천
     const itemLink = document.getElementById('lucky-item-link');
-    const randomObj = el.links[Math.floor(Math.random() * el.links.length)];
+    let randomObj = el.links[Math.floor(Math.random() * el.links.length)];
+
+    // 중복 방지 로직 (연속으로 같은 쿠팡 배너가 나오는 것 방지)
+    let tries = 0;
+    while (randomObj.url === lastShownLinkUrl && tries < 5) {
+        randomObj = el.links[Math.floor(Math.random() * el.links.length)];
+        tries++;
+    }
+    lastShownLinkUrl = randomObj.url;
+
     itemLink.href = randomObj.url || el.links[0].url;
-    itemLink.textContent = `🎁 행운의 아이템: ${randomObj.name || el.name.split('(')[0] + ' 기운 보충물'}`;
+    itemLink.textContent = `🎁 부족한 기운을 채워줄 아이템 확인하기`;
     itemLink.target = "_blank";
 }
 
-function resetLottoGate() {
-    document.getElementById('lotto-gate-1').classList.remove('hidden');
-    document.getElementById('lotto-gate-2').classList.add('hidden');
+function resetLottoCover() {
+    document.getElementById('lotto-cover-1').classList.remove('hidden');
+    document.getElementById('lotto-cover-2').classList.add('hidden');
     document.getElementById('lotto-numbers').style.filter = 'blur(10px)';
 }
 

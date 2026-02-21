@@ -14,7 +14,7 @@
     <meta property="og:description" content="AI 명리학으로 나의 오행 기운을 분석하고 행운의 로또 번호를 무료로 확인하세요!">
     <meta property="og:url" content="https://saju-deep.com">
     <meta property="og:type" content="website">
-    <link rel="stylesheet" href="style.css?v=2">
+    <link rel="stylesheet" href="style.css?v=3">
     <link
         href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Serif+KR:wght@400;500;700;900&display=swap"
         rel="stylesheet">
@@ -25,6 +25,15 @@
     <!-- Google AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9599727000688854"
         crossorigin="anonymous"></script>
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-INQH77ZSME"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-INQH77ZSME');
+    </script>
 </head>
 
 <body>
@@ -148,21 +157,21 @@
                         </div>
 
                         <!-- 1. Initial Gate -->
-                        <div id="lotto-gate-1" class="lotto-gate-overlay">
-                            <div class="gate-msg">🔒 번호가 잠겨있습니다</div>
-                            <button id="btn-unlock" class="gate-btn" style="background:#5d4037;">추천 로또번호 확인</button>
+                        <div id="lotto-cover-1" class="lotto-cover-overlay">
+                            <div class="cover-msg">🔒 번호가 잠겨있습니다</div>
+                            <button id="btn-reveal" class="cover-btn" style="background:#5d4037;">추천 로또번호 확인</button>
                         </div>
 
                         <!-- 2. Timer Gate (Hidden) -->
-                        <div id="lotto-gate-2" class="lotto-gate-overlay hidden">
-                            <div class="gate-msg">번호 추출 중... <span id="ad-timer"
+                        <div id="lotto-cover-2" class="lotto-cover-overlay hidden">
+                            <div class="cover-msg">번호 추출 중... <span id="reveal-timer"
                                     style="color:#ffeb3b; font-size:1.5rem;">5</span>초</div>
-                            <!-- Mock Ad -->
-                            <div class="ad-banner"
+                            <!-- Mock View -->
+                            <div class="wait-box"
                                 style="display:none; width:250px; height:100px; background:white; margin-bottom:15px;">
-                                <span>광고 배너</span>
+                                <span>기다려주세요</span>
                             </div>
-                            <button id="btn-close-ad" class="close-ad-btn hidden">✖ 번호 확인하기</button>
+                            <button id="btn-finish-reveal" class="close-reveal-btn hidden">✖ 번호 확인하기</button>
                         </div>
                     </div>
 
@@ -198,7 +207,7 @@
 
     <div class="wing-ad right-wing" style="display:none;"><span>광고 (160x600)</span></div>
 
-    <script src="logic.js?v=6"></script>
+    <script src="logic.js?v=7"></script>
 </body>
 
 </html>
