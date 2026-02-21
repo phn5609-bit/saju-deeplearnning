@@ -91,10 +91,15 @@ document.getElementById('saju-form').addEventListener('submit', function (e) {
 document.getElementById('btn-action-start').addEventListener('click', function () {
     document.getElementById('step-one-box').classList.add('hidden');
 
-    // 쿠팡 상품 링크 랜덤 열기 (모네타이즈/수익화)
+    // 쿠팡 상품 링크 랜덤 열기 (모네타이즈/수익화) - WAF 방어 우회
     const itemLink = document.getElementById('lucky-item-link');
     if (itemLink && itemLink.href) {
-        window.open(itemLink.href, '_blank');
+        const a = document.createElement('a');
+        a.href = itemLink.href;
+        a.target = '_blank';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
     }
 
     // Show Cover 2 (Timer)
@@ -319,7 +324,13 @@ function displayResult(res) {
 
     while (lottoCombos.length < 5 && attempts < 1000) {
         attempts++;
-        let nums = [...seedNums];
+        let nums = [];
+
+        // 너무 똑같은 번호가 반복되는 느낌을 피하기 위해, 
+        // 행운의 번호 2개 중 1개만 매 조합에 랜덤으로 포함시킵니다.
+        if (seedNums.length > 0) {
+            nums.push(seedNums[Math.floor(Math.random() * seedNums.length)]);
+        }
 
         while (nums.length < 6) {
             let r = Math.floor(Math.random() * 45) + 1;
@@ -353,7 +364,10 @@ function displayResult(res) {
 
     // 만약 조건이 너무 까다로워 5개를 다 못 채웠다면(희박하지만), 그냥 일반 랜덤 추가
     while (lottoCombos.length < 5) {
-        let nums = [...seedNums];
+        let nums = [];
+        if (seedNums.length > 0) {
+            nums.push(seedNums[Math.floor(Math.random() * seedNums.length)]);
+        }
         while (nums.length < 6) {
             let r = Math.floor(Math.random() * 45) + 1;
             if (!nums.includes(r)) nums.push(r);
