@@ -14,7 +14,7 @@
     <meta property="og:description" content="AI 명리학으로 나의 오행 기운을 분석하고 행운의 로또 번호를 무료로 확인하세요!">
     <meta property="og:url" content="https://saju-deep.com">
     <meta property="og:type" content="website">
-    <link rel="stylesheet" href="style.css?v=4">
+    <link rel="stylesheet" href="style.css?v=5">
     <link
         href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Serif+KR:wght@400;500;700;900&display=swap"
         rel="stylesheet">
@@ -157,22 +157,19 @@
                         </div>
 
                         <!-- 1. Initial Gate -->
-                        <div id="step-one-box" class="secret-dimmed-bg">
-                            <div class="status-text-info">🔒 번호가 잠겨있습니다</div>
+                        <div id="step-one-box" class="inline-action-box">
+                            <div class="status-text-info" style="color:#333;">🔒 번호가 잠겨있습니다</div>
                             <button id="btn-action-start" class="start-action-btn" style="background:#5d4037;">추천 로또번호
                                 확인</button>
                         </div>
 
                         <!-- 2. Timer Gate (Hidden) -->
-                        <div id="step-two-box" class="secret-dimmed-bg hidden">
-                            <div class="status-text-info">번호 추출 중... <span id="wait-sec-count"
-                                    style="color:#ffeb3b; font-size:1.5rem;">5</span>초</div>
-                            <!-- Mock View -->
-                            <div class="wait-box"
-                                style="display:none; width:250px; height:100px; background:white; margin-bottom:15px;">
-                                <span>기다려주세요</span>
-                            </div>
-                            <button id="btn-action-end" class="end-action-btn hidden">✖ 번호 확인하기</button>
+                        <div id="step-two-box" class="inline-action-box hidden">
+                            <div class="status-text-info" style="color:#b71c1c;">번호 추출 중... <span id="wait-sec-count"
+                                    style="color:#d84315; font-size:1.5rem; font-weight:900;">5</span>초</div>
+                            <button id="btn-action-end" class="end-action-btn hidden"
+                                style="background:#d84315; color:white; border:none; padding:12px 30px; border-radius:30px; font-weight:900; cursor:pointer; margin-top:10px;">✖
+                                번호 확인하기</button>
                         </div>
                     </div>
 
@@ -208,7 +205,7 @@
 
     <div class="wing-ad right-wing" style="display:none;"><span>광고 (160x600)</span></div>
 
-    <script src="logic.js?v=8"></script>
+    <script src="logic.js?v=9"></script>
 </body>
 
 </html>
