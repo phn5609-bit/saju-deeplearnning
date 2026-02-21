@@ -255,10 +255,8 @@ select:focus {
     justify-content: center;
     gap: 8px;
     margin: 15px 0;
-    filter: blur(10px);
     flex-wrap: wrap;
     /* Allow wrapping on small screens */
-    /* Default Blurred */
     transition: filter 0.5s;
 }
 
