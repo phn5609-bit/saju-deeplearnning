@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026년 병오년(丙午年) 운세 총정리 — 12띠별 재물·사업운 | 명리학 딥러닝</title>
+    <meta name="description"
+        content="2026년 병오년(丙午年) 신년 운세 총정리. 12띠별 재물운, 직업운, 건강운, 연애운을 명리학으로 분석합니다. 2026년을 대비하는 완전한 운세 가이드.">
+    <meta name="keywords" content="2026년운세, 병오년운세, 2026띠별운세, 2026재물운, 신년운세, 2026사주, 2026년사업운, 올해운세">
+    <link rel="stylesheet" href="../style.css?v=10">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Serif+KR:wght@400;500;700;900&display=swap"
+        rel="stylesheet">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9599727000688854"
+        crossorigin="anonymous"></script>
+    <meta name="google-site-verification" content="wjU88_xDzMwHG4SWj8LemmLqLXeR84L7Avod1R93_Sk" />
+    <style>
+        body {
+            font-family: 'Noto Serif KR', 'Gowun Batang', serif;
+            background: #0f0f13;
+            color: #e0d6c8;
+            margin: 0;
+            padding: 0;
+        }
+
+        .blog-container {
+            max-width: 820px;
+            margin: 0 auto;
+            padding: 40px 20px 80px;
+        }
+
+        .blog-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid #333;
+            margin-bottom: 40px;
+        }
+
+        .blog-nav a {
+            color: #d4af37;
+            text-decoration: none;
+        }
+
+        .logo-text {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #d4af37;
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: #f0e6d0;
+            line-height: 1.4;
+            margin-bottom: 10px;
+        }
+
+        .post-meta {
+            color: #888;
+            font-size: 0.85rem;
+            margin-bottom: 30px;
+        }
+
+        h2 {
+            font-size: 1.4rem;
+            color: #d4af37;
+            margin-top: 40px;
+            margin-bottom: 15px;
+            border-left: 4px solid #d4af37;
+            padding-left: 12px;
+        }
+
+        h3 {
+            font-size: 1.15rem;
+            color: #e0c870;
+            margin-top: 25px;
+        }
+
+        p {
+            line-height: 1.9;
+            margin: 15px 0;
+            font-size: 1.05rem;
+            color: #ccc;
+        }
+
+        .highlight-box {
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 12px;
+            padding: 20px 25px;
+            margin: 25px 0;
+        }
+
+        .띠-card {
+            border-radius: 12px;
+            padding: 18px 22px;
+            margin: 15px 0;
+            border: 1px solid #333;
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .띠-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .띠-name {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #f0e6d0;
+        }
+
+        .fortune-score {
+            font-size: 0.9rem;
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+
+        .score-great {
+            background: rgba(76, 175, 80, 0.2);
+            color: #81c784;
+            border: 1px solid rgba(76, 175, 80, 0.3);
+        }
+
+        .score-good {
+            background: rgba(33, 150, 243, 0.2);
+            color: #64b5f6;
+            border: 1px solid rgba(33, 150, 243, 0.3);
+        }
+
+        .score-normal {
+            background: rgba(255, 193, 7, 0.2);
+            color: #ffd54f;
+            border: 1px solid rgba(255, 193, 7, 0.3);
+        }
+
+        .score-caution {
+            background: rgba(244, 67, 54, 0.2);
+            color: #ef9a9a;
+            border: 1px solid rgba(244, 67, 54, 0.3);
+        }
+
+        .fortune-bars {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        .fortune-bar-item {
+            flex: 1;
+            min-width: 120px;
+        }
+
+        .fortune-label {
+            font-size: 0.8rem;
+            color: #888;
+            margin-bottom: 4px;
+        }
+
+        .fortune-bar {
+            height: 6px;
+            background: #222;
+            border-radius: 3px;
+        }
+
+        .fortune-fill {
+            height: 100%;
+            border-radius: 3px;
+        }
+
+        .fill-wealth {
+            background: linear-gradient(90deg, #ffd700, #ff8c00);
+        }
+
+        .fill-career {
+            background: linear-gradient(90deg, #4fc3f7, #0288d1);
+        }
+
+        .fill-health {
+            background: linear-gradient(90deg, #81c784, #388e3c);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th {
+            background: rgba(212, 175, 55, 0.2);
+            color: #d4af37;
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #444;
+        }
+
+        td {
+            padding: 10px 12px;
+            border: 1px solid #333;
+            color: #ccc;
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.15), rgba(139, 90, 43, 0.15));
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .cta-section a {
+            display: inline-block;
+            background: linear-gradient(135deg, #d4af37, #a07830);
+            color: #1a0a00;
+            font-weight: 900;
+            padding: 14px 35px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 1.1rem;
+            margin-top: 12px;
+        }
+
+        .related-posts {
+            margin-top: 50px;
+            border-top: 1px solid #333;
+            padding-top: 30px;
+        }
+
+        .related-posts h3 {
+            color: #d4af37;
+        }
+
+        .related-posts ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .related-posts ul li {
+            padding: 10px 0;
+            border-bottom: 1px solid #222;
+        }
+
+        .related-posts ul li a {
+            color: #ccc;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="blog-container">
+        <nav class="blog-nav">
+            <span class="logo-text">🔮 명리학 딥러닝</span>
+            <div><a href="../index.html">🏠 홈</a> &nbsp;|&nbsp; <a href="../blog.html">📖 블로그</a></div>
+        </nav>
+
+        <article>
+            <h1>2026년 병오년(丙午年) 운세 총정리 — 12띠별 재물·사업·건강운</h1>
+            <p class="post-meta">📅 2026년 2월 26일 &nbsp;|&nbsp; 📁 연간 운세 &nbsp;|&nbsp; ⏱️ 읽는 시간 약 10분</p>
+
+            <div class="highlight-box">
+                <p>🔥 2026년은 <strong>병오년(丙午年)</strong>으로, 화(火)의 기운이 두 겹으로 중첩되는 강렬한 해입니다. 丙(병)=태양의 불, 午(오)=말의 기운(火).
+                    변화·도전·열정·표현이 키워드인 한 해입니다. 어떤 띠가 특히 좋고, 어떤 띠가 조심해야 할까요?</p>
+            </div>
+
+            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-9599727000688854" data-ad-slot="auto"
+                data-ad-format="auto" data-full-width-responsive="true"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+
+            <h2>1. 2026년 병오년(丙午年) 핵심 기운</h2>
+            <table>
+                <tr>
+                    <th>구분</th>
+                    <th>내용</th>
+                </tr>
+                <tr>
+                    <td>연도 천간(天干)</td>
+                    <td>丙(병) — 태양, 빛, 열정, 표현</td>
+                </tr>
+                <tr>
+                    <td>연도 지지(地支)</td>
+                    <td>午(오) — 말, 화기(火氣), 역동성</td>
+                </tr>
+                <tr>
+                    <td>오행</td>
+                    <td>화(火) ×2 — 매우 강한 양(陽) 에너지</td>
+                </tr>
+                <tr>
+                    <td>방위</td>
+                    <td>남쪽이 길방(吉方)</td>
+                </tr>
+                <tr>
+                    <td>색상</td>
+                    <td>붉은색, 주황색, 보라색이 행운 색</td>
+                </tr>
+                <tr>
+                    <td>키워드</td>
+                    <td>도전, 변화, 확장, 명예, 열정, 속도</td>
+                </tr>
+            </table>
+
+            <h2>2. 12띠별 2026년 운세</h2>
+            <p>병오년의 화(火) 에너지와 각 띠의 오행 관계에 따라 운세 흐름이 달라집니다.</p>
+
+            <!-- 호랑이띠 -->
+            <div class="띠-card">
+                <div class="띠-header">
+                    <span class="띠-name">🐯 인(寅)띠 — 호랑이 (1986, 1998, 2010년생)</span>
+                    <span class="fortune-score score-great">★★★★★ 최고</span>
+                </div>
+                <p style="margin:5px 0; color:#c8e6c9; font-size:0.95rem;">목(木)이 화(火)를 생하는 상생 관계. 본인의 에너지가 빛을 발하는 해입니다.
+                    재물운·직업운 모두 상승세. 새로운 도전, 창업, 투자에 유리한 최고의 해.</p>
+                <div class="fortune-bars">
+                    <div class="fortune-bar-item">
+                        <div class="fortune-label">재물운</div>
+                        <div class="fortune-bar">
+                            <div class="fortune-fill fill-wealth" style="width:92%"></div>
+                        </div>
+                    </div>
+                    <div class="fortune-bar-item">
+                        <div class="fortune-label">직업운</div>
+                        <div class="fortune-bar">
+                            <div class="fortune-fill fill-career" style="width:88%"></div>
+                        </div>
+                    </div>
+                    <div class="fortune-bar-item">
+                        <div class="fortune-label">건강운</div>
+                        <div class="fortune-bar">
+                            <div class="fortune-fill fill-health" style="width:80%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 말띠 -->
+            <div class="띠-card">
+                <div class="띠-header">
+                    <span class="띠-name">🐴 오(午)띠 — 말 (1990, 2002, 2014년생)</span>
+                    <span class="fortune-score score-great">★★★★☆ 대길</span>
+                </div>
+                <p style="margin:5px 0; color:#c8e6c9; font-size:0.95rem;">본인과 같은 오(午), 병오년과 비견(比肩) 관계. 동료와 협력하면 시너지.
+                    사회적 활동, 인맥 확장에 최적의 해. 단, 과유불급 주의.</p>
+                <div class="fortune-bars">
+                    <div class="fortune-bar-item">
+                        <div class="fortune-label">재물운</div>
+                        <div class="fortune-bar">
+                            <div class="fortune-fill fill-wealth" style="width:80%"></div>
+                        </div>
+                    </div>
+                    <div class="fortune-bar-item">
+                        <div class="fortune-label">직업운</div>
+                        <div class="fortune-bar">
+                            <div class="fortune-fill fill-career" style="width:85%"></div>
+                        </div>
+                    </div>
+                    <div class="fortune-bar-item">
+                        <div class="fortune-label">건강운</div>
+                        <div class="fortune-bar">
+                            <div class="fortune-fill fill-health" style="width:70%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 쥐띠 -->
+            <div class="띠-card">
+                <div class="띠-header">
+                    <span class="띠-name">🐭 자(子)띠 — 쥐 (1984, 1996, 2008년생)</span>
+                    <span class="fortune-score score-caution">★★☆☆☆ 주의</span>
+                </div>
+                <p style="margin:5px 0; color:#ffcdd2; font-size:0.95rem;">수(水)인 쥐띠에게 화(火) 기운은 상극. 건강관리 철저히, 무리한 사업 확장
+                    자제. 안정·수성(守成) 전략이 필요한 해. 의료비 지출 주의.</p>
+                <div class="fortune-bars">
+                    <div class="fortune-bar-item">
+                        <div class="fortune-label">재물운</div>
+                        <div class="fortune-bar">
+                            <div class="fortune-fill fill-wealth" style="width:45%"></div>
+                        </div>
+                    </div>
+                    <div class="fortune-bar-item">
+                        <div class="fortune-label">직업운</div>
+                        <div class="fortune-bar">
+                            <div class="fortune-fill fill-career" style="width:50%"></div>
+                        </div>
+                    </div>
+                    <div class="fortune-bar-item">
+                        <div class="fortune-label">건강운</div>
+                        <div class="fortune-bar">
+                            <div class="fortune-fill fill-health" style="width:40%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 소띠 -->
+            <div class="띠-card">
+                <div class="띠-header">
+                    <span class="띠-name">🐂 축(丑)띠 — 소 (1985, 1997, 2009년생)</span>
+                    <span class="fortune-score score-normal">★★★☆☆ 보통</span>
+                </div>
+                <p style="margin:5px 0; color:#fff9c4; font-size:0.95rem;">토(土) 기운의 소띠는 화생토(火生土)로 지원을 받는 해. 중반 이후 안정적 수익
+                    증가. 급진적 변화보다 꾸준함이 키워드.</p>
+                <div class="fortune-bars">
+                    <div class="fortune-bar-item">
+                        <div class="fortune-label">재물운</div>
+                        <div class="fortune-bar">
+                            <div class="fortune-fill fill-wealth" style="width:65%"></div>
+                        </div>
+                    </div>
+                    <div class="fortune-bar-item">
+                        <div class="fortune-label">직업운</div>
+                        <div class="fortune-bar">
+                            <div class="fortune-fill fill-career" style="width:65%"></div>
+                        </div>
+                    </div>
+                    <div class="fortune-bar-item">
+                        <div class="fortune-label">건강운</div>
+                        <div class="fortune-bar">
+                            <div class="fortune-fill fill-health" style="width:70%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 토끼띠 -->
+            <div class="띠-card">
+                <div class="띠-header">
+                    <span class="띠-name">🐰 묘(卯)띠 — 토끼 (1987, 1999, 2011년생)</span>
+                    <span class="fortune-score score-good">★★★★☆ 길</span>
+                </div>
+                <p style="margin:5px 0; color:#bbdefb; font-size:0.95rem;">목(木)인 토끼띠도 화(火)를 생하는 상생 관계. 창의적 프로젝트, 예술, 콘텐츠
+                    분야에서 두각. 재물운도 꾸준히 상승.</p>
+                <div class="fortune-bars">
+                    <div class="fortune-bar-item">
+                        <div class="fortune-label">재물운</div>
+                        <div class="fortune-bar">
+                            <div class="fortune-fill fill-wealth" style="width:78%"></div>
+                        </div>
+                    </div>
+                    <div class="fortune-bar-item">
+                        <div class="fortune-label">직업운</div>
+                        <div class="fortune-bar">
+                            <div class="fortune-fill fill-career" style="width:82%"></div>
+                        </div>
+                    </div>
+                    <div class="fortune-bar-item">
+                        <div class="fortune-label">건강운</div>
+                        <div class="fortune-bar">
+                            <div class="fortune-fill fill-health" style="width:72%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-9599727000688854" data-ad-slot="auto"
+                data-ad-format="auto" data-full-width-responsive="true"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+
+            <h2>3. 2026년 병오년 공통 주의사항</h2>
+            <div class="highlight-box">
+                <p>🔥 화(火) 에너지가 강한 해에는 공통적으로:<br>
+                    ✅ 충동적인 투자·지출 자제<br>
+                    ✅ 여름철(5~8월) 심장·혈압 건강 관리<br>
+                    ✅ 화재·사고 예방 각별히 주의<br>
+                    ✅ 경쟁보다 협력에서 성과 발생<br>
+                    ✅ 새로운 기회를 용감하게 잡는 해 (특히 상생 띠들)
+                </p>
+            </div>
+
+            <div class="cta-section">
+                <p style="color:#d4af37; font-size:1.2rem; font-weight:700;">2026년 나의 정확한 사주 운세를 무료로 확인하세요!</p>
+                <p style="color:#aaa;">생년월일과 시간까지 입력하면 AI가 개인 맞춤 운세 + 행운 로또번호를 분석합니다.</p>
+                <a href="../index.html">🔮 2026년 내 운세 무료 분석</a>
+            </div>
+
+            <div class="related-posts">
+                <h3>📚 관련 글</h3>
+                <ul>
+                    <li><a href="saju-basics.html">▶ 사주(四柱)란 무엇인가? 초보자 완벽 가이드</a></li>
+                    <li><a href="ohang-guide.html">▶ 오행(五行) 완전 가이드</a></li>
+                    <li><a href="lotto-tips.html">▶ 사주로 로또 번호 고르는 법</a></li>
+                    <li><a href="saju-time.html">▶ 태어난 시간(時柱)이 운명에 미치는 영향</a></li>
+                </ul>
+            </div>
+        </article>
+    </div>
+</body>
+
+</html>
