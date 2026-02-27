@@ -124,16 +124,9 @@ document.getElementById('saju-form').addEventListener('submit', function (e) {
 document.getElementById('btn-action-start').addEventListener('click', function () {
     document.getElementById('step-one-box').classList.add('hidden');
 
-    // 쿠팡 상품 링크 랜덤 열기 (모네타이즈/수익화) - WAF 방어 우회
-    const itemLink = document.getElementById('lucky-item-link');
-    if (itemLink && itemLink.href) {
-        const a = document.createElement('a');
-        a.href = itemLink.href;
-        a.target = '_blank';
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-    }
+    // [UX REFORM] 대표님 지시: 로또 번호 확인 전 원치 않는 탭 열림 금지.
+    // 기존의 강제 팝업 로직은 방문자의 거부감을 유도하므로 제거하고, 
+    // 하단의 '행운 아이템 보러가기' 버튼을 통해서만 명확한 의사를 가지고 이동하도록 수정함.
 
     // Show Cover 2 (Timer)
     const cover2 = document.getElementById('step-two-box');
@@ -490,9 +483,19 @@ if (shareBtn) {
     console.error("Share button not found!");
 }
 
-// --- Phase 2: Viral Social Proof Loop (Premium UI) ---
-const fakeNames = ["이*훈 (서울)", "김*아 (부산)", "박*철 (대전)", "최*영 (인천)", "정*민 (광주)", "강*호 (대구)", "조*진 (경기)"];
-const fakeActions = ["방금 로또 1등 번호 분석 완료! 🎉", "재물운 행운템 추천 받았습니다! 🔥", "사업운 풀이에 크게 공감했습니다 🔮"];
+// --- Phase 2: Viral Social Proof Loop (Premium & Realistic UI) ---
+const fakeNames = [
+    "서울 송파구 김*준", "경기도 분당 이*영", "부산 해운대구 박*수",
+    "대구 수성구 최*호", "인천 연수구 정*미", "광주 남구 강*우",
+    "대전 서구 조*나", "울산 남구 윤*석", "제주 제주시 홍*길"
+];
+const fakeActions = [
+    "방금 '황금 기운' 매칭 후 로또 1등 번호 분석 완료! 💰",
+    "부족한 '수(지혜)' 기운 채우고 취업운 상승 중! 🔮",
+    "사업 파트너 운세 풀이에 '완전 공감' 했습니다 👍",
+    "행운의 로또 세트번호 5개를 모두 저장했습니다! 🎲",
+    "부족한 기운 보충 아이템 추천받고 재물운 열리는 중 🔥"
+];
 
 function showSocialProofPopup() {
     const existingPopup = document.querySelector('.social-proof-popup');
