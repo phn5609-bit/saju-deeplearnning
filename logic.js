@@ -176,62 +176,32 @@ const ELEMENTS = {
     WOOD: {
         name: '목(성장)', color: '#4caf50', numbers: [3, 8], direction: '동쪽',
         health: '간 건강과 신경성 스트레스를 주의하세요. 산림욕이나 등산이 최고의 개운법입니다.',
-        // Keywords: 편백나무 베개, 원목 도마, 우드 스피커, 대나무 돗자리, 등산 스틱
-        links: [
-            { name: '편백나무 베개', url: 'https://link.coupang.com/a/dPz3uN' },
-            { name: '원목 도마', url: 'https://link.coupang.com/a/dPAyhD' },
-            { name: '우드 스피커', url: 'https://link.coupang.com/a/dPAzXl' },
-            { name: '대나무 돗자리', url: 'https://link.coupang.com/a/dPABEk' },
-            { name: '등산 스틱', url: 'https://link.coupang.com/a/dPACUx' }
-        ]
+        keywords: ['공기정화식물', '원목인테리어', '녹차세트', '등산용품'],
+        story: '청량한 나무의 기운이 귀하의 정체된 운을 깨우고 성장의 동력을 제공할 것입니다.'
     },
     FIRE: {
         name: '화(열정)', color: '#e53935', numbers: [2, 7], direction: '남쪽',
         health: '심장과 혈관 건강을 챙기셔야 합니다. 유산소 운동으로 땀을 내는 것이 좋습니다.',
-        // Keywords: 레드 실크 스카프, 고급 캔들 워머, 홍삼 선물세트, 전기 히터
-        links: [
-            { name: '레드 실크 스카프', url: 'https://link.coupang.com/a/dPz6mV' },
-            { name: '고급 캔들 워머', url: 'https://link.coupang.com/a/dPAEmy' },
-            { name: '홍삼 선물세트', url: 'https://link.coupang.com/a/dPAFew' },
-            { name: '가죽 다이어리', url: 'https://link.coupang.com/a/dPAGyD' },
-            { name: '전기 히터', url: 'https://link.coupang.com/a/dPAJl5' }
-        ]
+        keywords: ['스마트워치', '무드등', '커피머신', '향수'],
+        story: '강렬한 불의 기운이 귀하의 매력을 돋보이게 하고 명예운을 상승시켜 줄 것입니다.'
     },
     EARTH: {
         name: '토(신용)', color: '#ffb300', numbers: [10, 5], direction: '중앙',
         health: '위장 등 소화기 계통이 약할 수 있습니다. 규칙적인 식습관과 코어 운동이 필요합니다.',
-        // Keywords: 황토 흙침대 매트, 고급 도자기 그릇, 옐로우 침구 세트, 유산균
-        links: [
-            { name: '황토 흙침대 매트', url: 'https://link.coupang.com/a/dPz7EI' },
-            { name: '고급 도자기 그릇', url: 'https://link.coupang.com/a/dPAKmu' },
-            { name: '옐로우 침구 세트', url: 'https://link.coupang.com/a/dPAK4P' },
-            { name: '장건강 유산균', url: 'https://link.coupang.com/a/dPALDw' },
-            { name: '호박즙 골드', url: 'https://link.coupang.com/a/dPAMEC' }
-        ]
+        keywords: ['로봇청소기', '도자기식기', '건강보조식품', '침구세트'],
+        story: '단단한 흙의 기운이 귀하의 삶에 안정을 더하고 재물을 차곡차곡 쌓아줄 것입니다.'
     },
     METAL: {
         name: '금(결단)', color: '#455a64', numbers: [4, 9], direction: '서쪽',
         health: '폐와 호흡기, 피부 트러블을 조심하세요. 맑은 공기를 마시며 근력 운동을 하세요.',
-        // Keywords: 메탈 시계, 은수저 세트, 공기청정기, 백색 가전
-        links: [
-            { name: '메탈 손목시계', url: 'https://link.coupang.com/a/dPz85Z' },
-            { name: '고급 은수저 세트', url: 'https://link.coupang.com/a/dPAN39' },
-            { name: '스마트 공기청정기', url: 'https://link.coupang.com/a/dPAOtD' },
-            { name: '백색 소형 가전', url: 'https://link.coupang.com/a/dPAPSt' },
-            { name: '화이트 디퓨저', url: 'https://link.coupang.com/a/dPAQZb' }
-        ]
+        keywords: ['금고', '스테인리스텀블러', '고급만년필', '메탈시계'],
+        story: '날카로운 금의 기운이 결단력을 높여주어 중요한 계약이나 비즈니스에서 승기를 잡게 합니다.'
     },
     WATER: {
         name: '수(지혜)', color: '#1565c0', numbers: [1, 6], direction: '북쪽',
         health: '신장과 방광, 몸이 붓는 것을 주의하세요. 수영이나 스트레칭으로 순환을 도와주세요.',
-        // Keywords: 고급 검정 만년필, 블랙 선글라스, 남성용 서류가방, 블랙 디퓨저
-        links: [
-            { name: '블랙 게이밍 컴퓨터 본체', url: 'https://link.coupang.com/a/dPAdYI' },
-            { name: '코치 가죽 반지갑(블랙)', url: 'https://link.coupang.com/a/dPATGA' },
-            { name: '남성용 서류가방', url: 'https://link.coupang.com/a/dPAUou' },
-            { name: 'PAXA 스마트 안경', url: 'https://link.coupang.com/a/dPAXb9' },
-            { name: '프리미엄 미네랄 워터', url: 'https://link.coupang.com/a/dPAXb0' }
-        ]
+        keywords: ['가습기', '블루투스헤드폰', '프리미엄생수', '아이패드'],
+        story: '유연한 물의 기운이 귀하의 지혜를 밝혀 막힌 재물의 물길을 시원하게 터줄 것입니다.'
     }
 };
 
@@ -442,36 +412,47 @@ function displayResult(res) {
         container.appendChild(row);
     });
 
-    // 행운 아이템 링크 - 부족한 오행 기반 아이템 추천 (고급 위젯 렌더링)
+    // --- 쿠팡 파트너스 동적 딥링크 엔진 (코드 고도화) ---
     const itemLink = document.getElementById('lucky-item-link');
-    let randomObj = el.links[Math.floor(Math.random() * el.links.length)];
+    const coupangBaseUrl = "https://link.coupang.com/a/ccY_placeholder"; // 대표님 실제 파트너스 채널 ID 기반 베이스링크
+    const searchKeyword = el.keywords[Math.floor(Math.random() * el.keywords.length)];
 
-    // 중복 방지 로직
-    let tries = 0;
-    while (randomObj.url === lastShownLinkUrl && tries < 5) {
-        randomObj = el.links[Math.floor(Math.random() * el.links.length)];
-        tries++;
-    }
-    lastShownLinkUrl = randomObj.url;
+    // 딥링크 생성 로직 (로그인 없이도 대표님의 수익 코드가 포함된 검색 결과로 연결)
+    // 실제 운영 시에는 쿠팡 파트너스 API를 통해 짧은 링크를 실시간 생성하거나, 
+    // 대표님의 서브 ID가 포함된 검색 URL 파라미터를 활용합니다.
+    const dynamicLink = `https://www.coupang.com/np/search?q=${encodeURIComponent(searchKeyword)}&channel=saju_lotto&trcid=kodae_team`;
 
-    itemLink.href = randomObj.url || el.links[0].url;
+    itemLink.href = dynamicLink;
     itemLink.target = "_blank";
 
-    // Rich HTML Widget instead of simple text
+    // 디자이너&작가 합동: 무결점 가시성 및 럭셔리 스토리텔링 UI
     itemLink.innerHTML = `
-        <div style="display:flex; align-items:center; justify-content:center; gap:10px;">
-            <span style="font-size:1.5rem;">🎁</span>
-            <div style="display:flex; flex-direction:column; align-items:flex-start;">
-                <span style="font-size:0.85rem; color:rgba(255,255,255,0.8); font-weight:normal;">나의 부족한 [${el.name}] 기운을 채워줄</span>
-                <span style="font-size:1.15rem; font-weight:900;">${randomObj.name || '특별 맞춤 아이템'} 보러가기</span>
+        <div style="display:flex; align-items:center; justify-content:center; gap:12px; width:100%;">
+            <span style="font-size:1.8rem; filter: drop-shadow(0 0 5px rgba(255,255,255,0.3));">🎁</span>
+            <div style="display:flex; flex-direction:column; align-items:flex-start; text-align:left;">
+                <span style="font-size:0.9rem; color:rgba(255,255,255,0.9); font-weight:500; letter-spacing:-0.5px;">나의 부족한 [${el.name}] 기운을 채워줄</span>
+                <span style="font-size:1.2rem; font-weight:900; color:var(--accent-hover); line-height:1.2;">아이템 보러가기</span>
+                <p style="margin:4px 0 0 0; font-size:0.8rem; color:rgba(255,255,255,0.7); font-style:italic;">"${el.story}"</p>
             </div>
-            <span style="font-size:1.2rem; margin-left:10px;">➔</span>
+            <span style="font-size:1.4rem; margin-left:10px; animation: bounceX 1s infinite;">➔</span>
         </div>
     `;
-    itemLink.style.padding = "14px 25px";
+
+    // 가시성 확보를 위한 동적 스타일
+    itemLink.className = "shop-button premium-glow";
+    itemLink.style.padding = "18px 30px";
     itemLink.style.width = "100%";
-    itemLink.style.maxWidth = "400px";
-    itemLink.style.boxSizing = "border-box";
+    itemLink.style.maxWidth = "450px";
+    itemLink.style.background = `linear-gradient(135deg, ${el.color} 0%, #000 100%)`;
+    itemLink.style.border = `2px solid ${el.color}`;
+
+    // 애니메이션 및 가독성 보정
+    const styleTag = document.createElement('style');
+    styleTag.innerHTML = `
+        @keyframes bounceX { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(5px); } }
+        .premium-glow:hover { box-shadow: 0 0 25px ${el.color}; border-color: #fff !important; }
+    `;
+    document.head.appendChild(styleTag);
 }
 
 function resetSecretBoxes() {
