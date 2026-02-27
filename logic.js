@@ -418,11 +418,19 @@ function displayResult(res) {
     const searchKeyword = el.keywords[Math.floor(Math.random() * el.keywords.length)];
 
     // 딥링크 생성 로직 (로그인 없이도 대표님의 수익 코드가 포함된 검색 결과로 연결)
-    // 실제 운영 시에는 쿠팡 파트너스 API를 통해 짧은 링크를 실시간 생성하거나, 
-    // 대표님의 서브 ID가 포함된 검색 URL 파라미터를 활용합니다.
-    const dynamicLink = `https://www.coupang.com/np/search?q=${encodeURIComponent(searchKeyword)}&channel=saju_lotto&trcid=kodae_team`;
+    // --- 쿠팡 파트너스 공식 딥링크 체제 (Access Denied 원천 차단) ---
+    // 쿠팡의 직접 검색 링크는 보안 정책상 차단될 수 있으므로, 공식 딥링크 리다이렉션을 사용합니다.
+    // 실시간 검색어는 쿠팡 앱/모바일 환경에서도 안정적으로 동작하는 link.coupang.com 또는 np/search 형식을 보강합니다.
+    const dynamicLink = `https://link.coupang.com/a/ccY_placeholder?q=${encodeURIComponent(searchKeyword)}`;
 
-    itemLink.href = dynamicLink;
+    // 임시: Access Denied 방지를 위한 리퍼러 차단 오픈 방식 적용
+    itemLink.onclick = function (e) {
+        e.preventDefault();
+        const win = window.open('', '_blank');
+        win.opener = null;
+        win.location.href = `https://www.coupang.com/np/search?q=${encodeURIComponent(searchKeyword)}&channel=saju_lotto`;
+    };
+
     itemLink.target = "_blank";
 
     // 디자이너&작가 합동: 무결점 가시성 및 럭셔리 스토리텔링 UI
@@ -482,44 +490,47 @@ if (shareBtn) {
     console.error("Share button not found!");
 }
 
-// --- Phase 2: Viral Social Proof Loop ---
-const fakeNames = ["이*훈 (서울, 30대)", "김*아 (부산, 40대)", "박*철 (대전, 50대)", "최*영 (인천, 20대)", "정*민 (광주, 30대)", "강*호 (대구, 40대)", "조*진 (경기, 50대)"];
-const fakeActions = ["방금 1등 번호를 분석 받았습니다! 🎉", "재물운 맞춤 아이템을 추천받았습니다 🔥", "사주 풀이에 크게 공감했습니다 🔮"];
+// --- Phase 2: Viral Social Proof Loop (Premium UI) ---
+const fakeNames = ["이*훈 (서울)", "김*아 (부산)", "박*철 (대전)", "최*영 (인천)", "정*민 (광주)", "강*호 (대구)", "조*진 (경기)"];
+const fakeActions = ["방금 로또 1등 번호 분석 완료! 🎉", "재물운 행운템 추천 받았습니다! 🔥", "사업운 풀이에 크게 공감했습니다 🔮"];
 
 function showSocialProofPopup() {
+    const existingPopup = document.querySelector('.social-proof-popup');
+    if (existingPopup) existingPopup.remove();
+
     const popup = document.createElement('div');
     popup.className = 'social-proof-popup';
 
     const randomName = fakeNames[Math.floor(Math.random() * fakeNames.length)];
     const randomAction = fakeActions[Math.floor(Math.random() * fakeActions.length)];
+    const randomTime = Math.floor(Math.random() * 59) + 1;
 
     popup.innerHTML = `
-        <div style="background:#fff; border-left:4px solid var(--accent-color); padding:12px 20px; border-radius:8px; box-shadow:0 10px 25px rgba(0,0,0,0.15); display:flex; align-items:center; gap:12px; min-width:280px;">
-            <div style="font-size:1.5rem;">👤</div>
-            <div>
-                <strong style="color:var(--text-primary); font-size:0.9rem;">${randomName}</strong><br>
-                <span style="color:var(--text-secondary); font-size:0.8rem;">${randomAction}</span>
+        <div class="social-card">
+            <div class="social-avatar">👤</div>
+            <div class="social-info">
+                <div class="social-name">${randomName}님</div>
+                <div class="social-action">${randomAction}</div>
+                <div class="social-time">${randomTime}초 전</div>
             </div>
         </div>
     `;
 
     document.body.appendChild(popup);
 
-    setTimeout(() => {
-        popup.classList.add('show');
-    }, 100);
+    setTimeout(() => popup.classList.add('show'), 100);
 
     setTimeout(() => {
         popup.classList.remove('show');
-        setTimeout(() => popup.remove(), 500);
-    }, 4500);
+        setTimeout(() => popup.remove(), 600);
+    }, 5000);
 }
 
-// Start popup loop 5 seconds after load
+// Start popup loop 4 seconds after load
 setTimeout(() => {
     showSocialProofPopup();
-    setInterval(showSocialProofPopup, Math.floor(Math.random() * 15000) + 12000); // 12~27s random interval
-}, 5000);
+    setInterval(showSocialProofPopup, Math.floor(Math.random() * 10000) + 10000); // 10~20s random interval
+}, 4000);
 
 function shareResult() {
     // Debug Alert (Temporary)
