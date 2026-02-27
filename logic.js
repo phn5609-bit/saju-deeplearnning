@@ -120,13 +120,13 @@ document.getElementById('saju-form').addEventListener('submit', function (e) {
     }
 });
 
-// Cover 1: Reveal Button
+// [무결점 UX 혁신] 대표님 최후통첩 반영: 강제 팝업 및 원치 않는 이동 로직 100% 제거
+// 이벤트 리스너 중복 등록 방지를 위해 기존 리스너 속성 초기화 후 단일 리스너 등록
+const startBtn = document.getElementById('btn-action-start');
+startBtn.replaceWith(startBtn.cloneNode(true)); // 기존 모든 리스너 제거 효과
+
 document.getElementById('btn-action-start').addEventListener('click', function () {
     document.getElementById('step-one-box').classList.add('hidden');
-
-    // [UX REFORM] 대표님 지시: 로또 번호 확인 전 원치 않는 탭 열림 금지.
-    // 기존의 강제 팝업 로직은 방문자의 거부감을 유도하므로 제거하고, 
-    // 하단의 '행운 아이템 보러가기' 버튼을 통해서만 명확한 의사를 가지고 이동하도록 수정함.
 
     // Show Cover 2 (Timer)
     const cover2 = document.getElementById('step-two-box');
@@ -135,7 +135,7 @@ document.getElementById('btn-action-start').addEventListener('click', function (
 
     const timerSpan = document.getElementById('wait-sec-count');
     const closeBtn = document.getElementById('btn-action-end');
-    closeBtn.classList.add('hidden'); // Ensure hidden initially
+    closeBtn.classList.add('hidden');
 
     let timeLeft = 5;
     timerSpan.innerText = timeLeft;
@@ -146,7 +146,6 @@ document.getElementById('btn-action-start').addEventListener('click', function (
         if (timeLeft <= 0) {
             clearInterval(interval);
             timerSpan.innerText = "0";
-            // Show Close Button
             closeBtn.classList.remove('hidden');
         }
     }, 1000);
@@ -410,21 +409,15 @@ function displayResult(res) {
     const coupangBaseUrl = "https://link.coupang.com/a/ccY_placeholder"; // 대표님 실제 파트너스 채널 ID 기반 베이스링크
     const searchKeyword = el.keywords[Math.floor(Math.random() * el.keywords.length)];
 
-    // 딥링크 생성 로직 (로그인 없이도 대표님의 수익 코드가 포함된 검색 결과로 연결)
-    // --- 쿠팡 파트너스 공식 딥링크 체제 (Access Denied 원천 차단) ---
-    // 쿠팡의 직접 검색 링크는 보안 정책상 차단될 수 있으므로, 공식 딥링크 리다이렉션을 사용합니다.
-    // 실시간 검색어는 쿠팡 앱/모바일 환경에서도 안정적으로 동작하는 link.coupang.com 또는 np/search 형식을 보강합니다.
-    const dynamicLink = `https://link.coupang.com/a/ccY_placeholder?q=${encodeURIComponent(searchKeyword)}`;
+    // --- [결정적 해결] Coupang WAF 차단(Access Denied) 해결 전략 ---
+    // 1. window.open/location.href 대신 순수 <a> 태그의 href 속성 활용
+    // 2. rel="noreferrer"를 사용하여 쿠팡 서버에 전달되는 리퍼러 정보를 삭제함 (차단 우회의 핵심)
+    const finalCoupangUrl = `https://www.coupang.com/np/search?q=${encodeURIComponent(searchKeyword)}&channel=saju_lotto`;
 
-    // 임시: Access Denied 방지를 위한 리퍼러 차단 오픈 방식 적용
-    itemLink.onclick = function (e) {
-        e.preventDefault();
-        const win = window.open('', '_blank');
-        win.opener = null;
-        win.location.href = `https://www.coupang.com/np/search?q=${encodeURIComponent(searchKeyword)}&channel=saju_lotto`;
-    };
-
+    itemLink.href = finalCoupangUrl;
     itemLink.target = "_blank";
+    itemLink.rel = "noreferrer noopener"; // WAF 우회를 위한 리퍼러 제거
+    itemLink.onclick = null; // 기존의 모든 JS 가로채기 로직 초기화
 
     // 디자이너&작가 합동: 무결점 가시성 및 럭셔리 스토리텔링 UI
     itemLink.innerHTML = `
