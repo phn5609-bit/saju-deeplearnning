@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /node_modules/
+Disallow: /output/
+Disallow: /automation/
+Disallow: /.env
+
+Sitemap: https://saju-deep.com/sitemap.xml
