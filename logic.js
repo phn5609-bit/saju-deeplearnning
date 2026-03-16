@@ -410,9 +410,9 @@ function displayResult(res) {
     const searchKeyword = el.keywords[Math.floor(Math.random() * el.keywords.length)];
 
     // --- [결정적 해결] Coupang WAF 차단(Access Denied) 해결 전략 ---
-    // 1. 비표준 파라미터(&channel=saju_lotto) 제거 (차단 주범)
-    // 2. rel="noreferrer" 적극 활용하여 비정상 리퍼러 차단 방어
-    const finalCoupangUrl = `https://www.coupang.com/np/search?q=${encodeURIComponent(searchKeyword)}&channel=user`;
+    // 1. 모든 비표준 파라미터를 제거하고 가장 순수한 검색 URL 사용
+    // 2. rel="noreferrer"를 통해 리퍼러 차단 원천 봉쇄
+    const finalCoupangUrl = `https://www.coupang.com/np/search?q=${encodeURIComponent(searchKeyword)}`;
 
     itemLink.href = finalCoupangUrl;
     itemLink.target = "_blank";
