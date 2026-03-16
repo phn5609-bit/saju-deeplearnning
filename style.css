@@ -184,15 +184,18 @@ select:focus {
 
 .cta-button {
     width: 100%;
-    padding: 20px;
+    padding: 18px 10px; /* 패딩 최적화 */
     background: linear-gradient(135deg, var(--accent-color) 0%, #b8860b 100%);
     color: #0f172a;
-    /* Dark text on gold button */
     border: none;
     border-radius: 16px;
-    font-size: 1.4rem;
+    font-size: 1.25rem; /* 글자 크기 소폭 축소로 가독성 확보 */
     font-weight: 800;
     cursor: pointer;
+    letter-spacing: -0.5px; /* 자간 조절로 한 줄 유지 */
+    white-space: nowrap; /* 절대 줄바꿈 금지 */
+    overflow: hidden;
+    text-overflow: ellipsis;
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     box-shadow: 0 10px 25px -5px rgba(212, 175, 55, 0.4);
 }
@@ -442,14 +445,31 @@ select:focus {
 .social-proof-popup {
     position: fixed;
     bottom: -100px;
-    left: 50%;
-    transform: translateX(-50%);
+    left: 20px; /* 중앙이 아닌 좌측 하단으로 이동하여 메인 컨텐츠와 분리 */
+    transform: none; /* 중앙 정렬 해제 */
     transition: bottom 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.5s ease;
     opacity: 0;
-    z-index: 1000;
+    z-index: 9999; /* 최상위 레이어 유지 */
+    max-width: 280px; /* 너무 커서 가리는 것 방지 */
 }
 
 .social-proof-popup.show {
-    bottom: 30px;
+    bottom: 20px;
     opacity: 1;
+}
+
+/* Ad Slot Placeholder - 광고 미출력 시 흉한 공백 방지 */
+.ad-banner {
+    background: rgba(255, 255, 255, 0.02) !important;
+    border: 1px dashed rgba(212, 175, 55, 0.1) !important;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+}
+
+.ad-banner::after {
+    content: "PREMIUM AD SPACE";
+    font-size: 0.7rem;
+    color: rgba(212, 175, 55, 0.3);
+    letter-spacing: 2px;
 }
