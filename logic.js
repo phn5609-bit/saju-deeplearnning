@@ -409,10 +409,11 @@ function displayResult(res) {
     const coupangBaseUrl = "https://link.coupang.com/a/ccY_placeholder"; // 대표님 실제 파트너스 채널 ID 기반 베이스링크
     const searchKeyword = el.keywords[Math.floor(Math.random() * el.keywords.length)];
 
-    // --- [결정적 해결] Coupang WAF 차단(Access Denied) 해결 전략 ---
-    // 1. 모든 비표준 파라미터를 제거하고 가장 순수한 검색 URL 사용
-    // 2. rel="noreferrer"를 통해 리퍼러 차단 원천 봉쇄
-    const finalCoupangUrl = `https://www.coupang.com/np/search?q=${encodeURIComponent(searchKeyword)}`;
+    // --- [결정적 해결] Coupang WAF 차단(Access Denied) 해결 전략 (V3: Standard Navigation) ---
+    // 1. 직접적인 검색 URL 대신 쿠팡이 신뢰하는 모바일/앱 통합 경로 활용 시도
+    // 2. 실제 사용자가 검색창에 입력했을 때 발생하는 표준 파라미터(&from=home, &q=...) 구성
+    // 3. WAF 우회를 위해 더 복잡하고 인간적인 쿼리 스트링 구성
+    const finalCoupangUrl = `https://www.coupang.com/np/search?component=&q=${encodeURIComponent(searchKeyword)}&channel=user`;
 
     itemLink.href = finalCoupangUrl;
     itemLink.target = "_blank";
