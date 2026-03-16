@@ -410,14 +410,14 @@ function displayResult(res) {
     const searchKeyword = el.keywords[Math.floor(Math.random() * el.keywords.length)];
 
     // --- [결정적 해결] Coupang WAF 차단(Access Denied) 해결 전략 ---
-    // 1. window.open/location.href 대신 순수 <a> 태그의 href 속성 활용
-    // 2. rel="noreferrer"를 사용하여 쿠팡 서버에 전달되는 리퍼러 정보를 삭제함 (차단 우회의 핵심)
-    const finalCoupangUrl = `https://www.coupang.com/np/search?q=${encodeURIComponent(searchKeyword)}&channel=saju_lotto`;
+    // 1. 비표준 파라미터(&channel=saju_lotto) 제거 (차단 주범)
+    // 2. rel="noreferrer" 적극 활용하여 비정상 리퍼러 차단 방어
+    const finalCoupangUrl = `https://www.coupang.com/np/search?q=${encodeURIComponent(searchKeyword)}&channel=user`;
 
     itemLink.href = finalCoupangUrl;
     itemLink.target = "_blank";
     itemLink.rel = "noreferrer noopener"; // WAF 우회를 위한 리퍼러 제거
-    itemLink.onclick = null; // 기존의 모든 JS 가로채기 로직 초기화
+    itemLink.onclick = null; 
 
     // 디자이너&작가 합동: 무결점 가시성 및 럭셔리 스토리텔링 UI
     itemLink.innerHTML = `
